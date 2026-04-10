@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail evenement</title>
+  <link rel="stylesheet" href="../stylescss/cirquedelabeil.css">
+</head>
+
+<body>
+  <header id="header"></header>
+
+  <button class="toggle-aside" aria-expanded="false" aria-controls="aside-menu">
+    &#9654;
+  </button>
+
+  <main>
+    <section class="aside" id="aside-menu">
+      <h3>Nos Evenements</h3>
+      <ul id="aside-list"></ul>
+    </section>
+
+    <section class="imageEvent">
+      <h1 id="detail-name">Chargement de l'evenement</h1>
+
+      <div class="carrousel">
+        <div class="carrousel-container" id="detail-gallery">
+          <img id="detail-image" src="../image/image logo.jpg" alt="Evenement">
+        </div>
+        <p id="detail-gallery-counter" class="carrousel-counter" aria-live="polite" hidden>
+          1 / 1
+        </p>
+        <button class="next" aria-label="Image suivante">&#10095;</button>
+        <button class="prev" aria-label="Image precedente">&#10094;</button>
+      </div>
+    </section>
+
+    <section class="event">
+      <div class="descriptionEvenement">
+        <h4>Description de l'evenement</h4>
+        <p id="detail-status">Chargement...</p>
+        <p id="detail-description">
+          Les informations de cet evenement sont en cours de chargement.
+        </p>
+
+        <div class="map">
+          <p id="detail-map-text">Aucun document parcours disponible.</p>
+          <div class="detail-map-content">
+            <div id="detail-map-frame-container" hidden>
+              <iframe
+                id="detail-map-iframe"
+                src=""
+                allowfullscreen
+                loading="lazy"
+                scrolling="no"
+                title="Carte interactive"
+              ></iframe>
+            </div>
+            <aside id="detail-map-qr-card" class="detail-map-qr-card" hidden>
+              <h5 class="detail-map-qr-title">QR Code VisuGPX</h5>
+              <img
+                id="detail-map-qr-image"
+                class="detail-map-qr-image"
+                src=""
+                alt="QR code de la carte VisuGPX"
+              >
+              <p class="detail-map-qr-text">
+                Scannez pour ouvrir la carte sur mobile.
+              </p>
+              <div class="detail-map-qr-actions">
+                <a
+                  id="detail-map-qr-link"
+                  class="detail-map-qr-link"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Ouvrir la carte
+                </a>
+                <button
+                  id="detail-map-share-button"
+                  class="detail-map-share-button"
+                  type="button"
+                  aria-label="Partager la carte"
+                >
+                  <svg
+                    class="detail-map-share-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M18 16.1c-1.1 0-2.1.5-2.8 1.2L8.9 13.7c.1-.3.1-.5.1-.8s0-.5-.1-.8l6.2-3.6c.7.8 1.7 1.3 2.9 1.3 2.1 0 3.8-1.7 3.8-3.8S20.1 2.2 18 2.2 14.2 3.9 14.2 6c0 .3 0 .5.1.8L8.1 10.4C7.4 9.6 6.4 9.1 5.2 9.1c-2.1 0-3.8 1.7-3.8 3.8s1.7 3.8 3.8 3.8c1.2 0 2.2-.5 2.9-1.3l6.2 3.7c-.1.2-.1.5-.1.8 0 2.1 1.7 3.8 3.8 3.8s3.8-1.7 3.8-3.8-1.7-3.8-3.8-3.8z"/>
+                  </svg>
+                </button>
+              </div>
+              <p id="detail-map-share-status" class="detail-map-share-status"></p>
+            </aside>
+          </div>
+          <p>
+            <a id="detail-map-link" href="#" target="_blank" rel="noopener" hidden>
+              Ouvrir le document parcours
+            </a>
+          </p>
+        </div>
+
+        <div class="detailsEvenement">
+          <h4>Details de l'evenement</h4>
+          <div class="detail-inputs-evenement">
+            <label>
+              Date
+              <input id="detail-input-date" type="text" readonly>
+            </label>
+            <label>
+              Heure de depart
+              <input id="detail-input-heure-depart" type="text" readonly>
+            </label>
+            <label>
+              Heure d'arrivee
+              <input id="detail-input-heure-arrivee" type="text" readonly>
+            </label>
+            <label>
+              Lieu de rendez-vous
+              <input id="detail-input-lieu-rdv" type="text" readonly>
+            </label>
+            <label>
+              Lieu d'arrivee
+              <input id="detail-input-lieu-arrivee" type="text" readonly>
+            </label>
+            <label>
+              Tarif
+              <input id="detail-input-tarif" type="text" readonly>
+            </label>
+            <label>
+              Accessibilite
+              <input id="detail-input-accessibilite" type="text" readonly>
+            </label>
+            <label>
+              Difficulte
+              <input id="detail-input-difficulte" type="text" readonly>
+            </label>
+            <label>
+              Denivele
+              <input id="detail-input-denivele" type="text" readonly>
+            </label>
+            <label>
+              Altitude maximale
+              <input id="detail-input-altitude-max" type="text" readonly>
+            </label>
+            <label>
+              Point d'eau / ravitaillement
+              <input id="detail-input-point-eau" type="text" readonly>
+            </label>
+          </div>
+          <ul id="detail-info-list" hidden></ul>
+        </div>
+
+        <div class="materielsEvenement">
+          <h4>Materiel recommande</h4>
+          <div class="detail-materiels-group">
+            <div>
+              <h5 class="detail-materiels-title">Obligatoire</h5>
+              <div
+                id="detail-materiel-obligatoire"
+                class="detail-materiel-liste"
+              ></div>
+            </div>
+            <div>
+              <h5 class="detail-materiels-title">Recommande</h5>
+              <div
+                id="detail-materiel-recommande"
+                class="detail-materiel-liste"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="inscription">
+          <p>Inscrivez-vous des maintenant pour participer a cet evenement.</p>
+          <div class="bouton-ins">
+            <button><a href="../Projethtml/formulaire.html">Inscription</a></button>
+          </div>
+          <div class="lien">
+            <p>
+              Pour toute question, n'hesitez pas a
+              <a href="../Projethtml/contact.html">nous contacter</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="sticky-button-container">
+    <a href="../Projethtml/formulaire.html">
+      <button class="sticky-inscription-btn">S'INSCRIRE</button>
+    </a>
+  </div>
+
+  <footer class="footer"></footer>
+
+  <script type="module" src="../Projetjs/utilitaire.js"></script>
+  <script type="module" src="../Projetjs/event-detail.js"></script>
+</body>
+</html>

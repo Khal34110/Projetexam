@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'inscription </title>
+    <link rel="stylesheet" href="../stylescss/formulaire.css">
+</head>
+
+<body>
+ <header id="header">
+    <!-- Logo -->
+  <!-- <img src="../image/image logo.png" class="logo" alt="Logo Randonnée Hérault"> -->
+    <!-- Titre -->
+  <!-- <p class="site-title">Randonnée de l'Hérault</p> -->
+    <!-- Icône utilisateur -->
+  <!-- <a href="../Projethtml/connexion.html">
+    <img class="user" src="../image/telechargement4.png" alt="Utilisateur">
+  </a> -->
+
+  <!-- BOUTON BURGER -->
+  <!-- <button class="burger" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button> -->
+  <!-- Menu header -->
+  <!-- <nav class="menu">
+    <ul>
+      <li><a href="accueil.html">ACCUEIL</a></li>
+      <li><a href="apropos.html">À PROPOS</a></li>
+      <li><a href="event.html">ÉVÉNEMENTS</a></li>
+      <li><a href="inscription.html">INSCRIPTION</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav> -->
+  <!-- <div class="search-bar"> -->
+    <!-- barre de recherche -->
+    <!-- <input type="text" placeholder="Rechercher..." name="">
+  </div> -->
+</header>
+<!-- Corps de la page -->
+    <main>
+       <!-- titre de la page -->
+        <h1>Formulaire d'inscription</h1>
+        <h4>infos Contact</h4>
+        <div class="form-container">
+            <form class="formulaire">
+                <input type="text" placeholder="Nom" required>
+                <input type="text" placeholder="Prénom" required>
+                <input type="text" placeholder="Adresse" required>
+                <input type="text" placeholder="Date de naissance" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Numéro de téléphone" required>
+
+                <div class="certificat">
+                    <input type="text" placeholder="Certificat médical" required>
+                    <input type="file" name="certif_pdf" accept=".pdf,.doc,.docx" required>
+                </div>
+                <h4>Choix d'événement</h4>
+                <div class="event-form">
+                    <div class="typeform">
+                        <label for="type-evenement">Sélectionner votre type d'vénement</label>
+                        <br><select id="type-evenement" required>
+                            <option value="">--Veuillez sélectionner--</option>
+                            <option value="marche">Marche</option>
+                            <option value="course">Course</option>
+                            <option value="trail">Trail</option>
+                            <option value="vtt">vtt</option>
+
+                        </select>
+                    </div>
+                    <div class="nonform">
+                        <label for="non-evenement">Nom de l'événement</label>
+                        <br>
+                        <select id="non-event" required>
+                            <option value="">--Veuillez sélectionner--</option>
+                            <option value="Cirque de Labeil et sa grotte">Cirque de Labeil et sa grotte</option>
+                            <option value="Les corniches de Lauroux">Les corniches de Lauroux</option>
+                            <option value="Laval de Nize">Laval de Nize</option>
+                            <option value="Les Fenestrettes">Les Fenestrettes</option>
+                            <option value="Le tour du Lac de Salagou depuis Lodève">Le tour du Lac de Salagou depuis
+                                Lodève</option>
+                            <option value="Chapelle Saint-Amans depuis Villecun">Chapelle Saint-Amans depuis Villecun
+                            </option>
+                            <option value="Cirque de Moureze">Cirque de Moureze</option>
+                            <option value="Les belvédères de la Gardiole">Les belvédères de la Gardiole</option>
+
+                        </select>
+                    </div>
+                    <div class="dateform">
+                        <label for="date-event">Date de l'événement</label>
+                        <br>
+                        <select id="date-event" required>
+                            <option value="">--Choisissez une date--</option>
+                            <option value="JJ/MM/AAAA">.. /.. /....</option>
+                        </select>
+                    </div>
+                    <div class="nombreform">
+                        <label for="nombre-event">Nombre de participants</label>
+                        <br>
+                        <select id="nombre-event" required>
+                            <option value="">--Choisissez un nombre--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="assurance">
+                    <p>Assurez-vous que toutes les informations sont correctes avant de soumettre le formulaire.</p>
+                
+                <button type="submit">S'inscrire</button>
+            </div>
+            </form>
+        </div>
+        <div class="merci">
+            <h4>Merci de votre inscription !</h4>
+            <p>Vous recevrez un e-mail de confirmation à l'adresse fournie.</p>
+        </div>
+        <div class="reglement">
+            <H5>Recommandation et Engagement</H5>
+            <p>Participant à la randonnée pédestre,<br>je m’engage à :
+            <ul>
+            <li>Respecter le tracé des parcours balisés</li>
+            <li>Gérer mon effort, m’hydrater et m’alimenter</li>
+            <li>M’adapter aux conditions météo</li>
+            <li>Ne pas entraver la marche ou le repos des autres randonneurs</li>
+            <li>Respecter l’environnement</li>
+            </ul>
+        </div>
+    </main>
+    <!-- footer -->
+    <footer class="footer">       
+    <!-- <a href="../Projethtml/contact.html">Nous contacter</a>
+    <p>Copyright © 2025
+     Powered by Khaled</p>
+    <a href="../Projethtml/mentionsLegales.html">Mentions légales</a>
+    <a href="../Projethtml/politiqueconf.html">Politique de confidentialité</a> -->
+</footer>
+    <!-- menu burger script -->
+<script type ="module" src="../Projetjs/utilitaire.js"></script>
+
+
+</html>

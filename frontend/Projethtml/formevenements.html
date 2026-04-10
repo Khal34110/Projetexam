@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'événements</title>
+    <link rel="stylesheet" href="../stylescss/formevenements.css">
+</head>
+
+<body>
+
+    <header id="header">
+        <!-- Logo -->
+        <!-- <img src="../image/image logo.png" class="logo" alt="Logo Randonnée Hérault"> -->
+
+        <!-- <p class="site-title">Randonnée de l'Hérault</p> -->
+        <!-- Logo user -->
+        <!-- <a href="../Projethtml/connexion.html">
+            <img class="user" src="../image/telechargement4.png" alt="Utilisateur">
+        </a> -->
+
+        <!-- BOUTON BURGER -->
+        <!-- <button class="burger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button> -->
+
+        <!-- Menu header -->
+        <!-- <nav class="menu">
+            <ul>
+                <li><a href="accueil.html">ACCUEIL</a></li>
+                <li><a href="apropos.html">À PROPOS</a></li>
+                <li><a href="evenements.html">ÉVÉNEMENTS</a></li>
+                <li><a href="inscription.html">INSCRIPTION</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </nav> -->
+
+        <!-- Barre de recherche  -->
+        <!-- <div class="search-bar">
+            <input type="text" placeholder="Rechercher..." name="">
+        </div> -->
+    </header>
+
+    <!-- Titre de la page -->
+    <h1 class="titre">Nouvel Evenement</h1>
+    <!-- Corps de la page -->
+    <main>
+<div class="evenement-form">
+        <form id="event-form" class="event-form" action="#" method="post">
+
+            <!-- Informations sur l'événement -->
+            <h2>Informations générales</h2>
+    
+            <!-- Input et labels description de l'événement -->
+
+            <label>Nom de la randonnée :</label>
+            <input type="text" placeholder="Nom de la randonnée" name="nom_randonnee" required>
+
+            <label>Organisateur / Association :</label>
+            <input type="text" placeholder="Organisateur / Association" name="organisateur">
+
+            <label>Date de l'événement :</label>
+            <input type="date" placeholder="Date de l'événement" name="date_evenement" required>
+
+            <label> <img src="../image/icone fauteuil.png" alt="image">Accessibilité :</label>
+            <!-- Choix dans le select -->
+            <select name="accessibilite" id="">
+                <option value="">-- Choisir --</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label>Type de randonnée :</label>
+            <select name="type_randonnee" required>
+                <option value="">-- Choisir --</option>
+                <option value="pedestre">Pédestre</option>
+                <option value="vtt">VTT</option>
+                <option value="trail">Trail</option>
+                <option value="autre">Autre</option>
+            </select>
+
+            <h2>Détails du parcours</h2>
+            <label>Distance (km) :</label>
+            <input type="number" name="distance" step="0.1" min="0">
+
+            <label>Niveau de difficulté :</label>
+            <select name="ID_difficulte" id="difficulte-options" required>
+                <option value="">-- Choisir --</option>
+                <option value="1">Facile</option>
+                <option value="2">Moyen</option>
+                <option value="3">Difficile</option>
+            </select>
+
+            <label>Dénivelé (m) :</label>
+            <input type="number" name="denivele" min="0">
+
+            <label>Durée estimée (heures) :</label>
+            <input type="text" name="duree">
+
+            <label>Point de départ :</label>
+            <input type="text" name="depart">
+
+            <label>Heure de départ :</label>
+            <input type="time" name="heure_depart">
+
+            <label>Point d’arrivée :</label>
+            <input type="text" name="arrivee">
+
+            <label>Heure d’arrivée estimée :</label>
+            <input type="time" name="heure_arrivee">
+
+            <label>Itinéraire / description du parcours :</label>
+            <textarea name="itineraire" rows="4"></textarea>
+
+            <h2>Informations pratiques</h2>
+            <label>Lieu de rendez-vous :</label>
+            <input type="text" name="lieu_rdv">
+
+            <label>Parking disponible :</label>
+            <div class="checkbox-group">
+                <label><input type="radio" name="parking" value="oui"> Oui</label>
+                <label><input type="radio" name="parking" value="non"> Non</label>
+            </div>
+
+            <label>Accès transport (train/bus) :</label>
+            <input type="text" name="transport">
+
+            <label>Point d’eau / ravitaillement :</label>
+            <div class="checkbox-group">
+                <label><input type="radio" name="ravitaillement" value="oui"> Oui</label>
+                <label><input type="radio" name="ravitaillement" value="non"> Non</label>
+            </div>
+
+            <label>Toilettes disponibles :</label>
+            <div class="checkbox-group">
+                <label><input type="radio" name="toilettes" value="oui"> Oui</label>
+                <label><input type="radio" name="toilettes" value="non"> Non</label>
+            </div>
+            
+            <h2>Details de l'evenement en base</h2>
+
+            <label>Nom de l'evenement :</label>
+            <input type="text" name="Nom" placeholder="Nom visible sur la fiche detail">
+
+            <label>Description :</label>
+            <textarea name="Descriptif" rows="5" placeholder="Description detaillee de l'evenement"></textarea>
+
+            <label>Date de l'evenement :</label>
+            <input type="date" name="Date_event">
+
+            <label>Heure de depart :</label>
+            <input type="time" name="Heure_de_depart">
+
+            <label>Heure d'arrivee :</label>
+            <input type="time" name="Heure_d_arrivee">
+
+            <label>Lieu de rendez-vous :</label>
+            <input type="text" name="Lieu_de_rdv">
+
+            <label>Lieu d'arrivee :</label>
+            <input type="text" name="Lieu_d_arrivee">
+
+            <label>Tarif :</label>
+            <input type="number" name="Tarif" min="0" step="0.01" placeholder="Exemple : 20">
+
+            <label>Carte parcours / lien VisuGPX :</label>
+            <input type="text" name="Carte_parcours" placeholder="https://www.visugpx.com/...">
+
+            <label>Denivele (m) :</label>
+            <input type="number" name="Denivele" min="0">
+
+            <label>Altitude maximale (m) :</label>
+            <input type="number" name="Altitude_maximale" min="0">
+
+            <label>Point d'eau / ravitaillement :</label>
+            <select name="Point_d_eau_ravitaillement">
+                <option value="">-- Choisir --</option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select>
+
+           <!-- Liste du matériel recommandé -->
+            <h2>Matériel recommandé</h2>
+            <div class="materiel-recommande">
+                <p>
+                    Coche "Recommande" pour le proposer aux participants.
+                    Coche aussi "Obligatoire" si le materiel est indispensable.
+                </p>
+                <div class="materiel-liste" id="materiels-options">
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Batons</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="1"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="1"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Chaussures de randonnee</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="2"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="2"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Casque VTT</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="3"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="3"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Sac a dos</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="4"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="4"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Gourde</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="5"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="5"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Coupe-vent</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="6"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="6"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Lampe frontale</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="7"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="7"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Casquette ou chapeau</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="8"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="8"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Lunettes de soleil</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="9"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="9"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Sac de couchage</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="10"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="10"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Kit de premier soin</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="11"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="11"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Tente</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="12"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="12"> Obligatoire</label>
+                        </div>
+                    </div>
+                    <div class="materiel-ligne">
+                        <span class="materiel-nom">Creme solaire</span>
+                        <div class="materiel-choix">
+                            <label><input type="checkbox" name="materiels[]" value="13"> Recommande</label>
+                            <label><input type="checkbox" name="materiels_obligatoires[]" value="13"> Obligatoire</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Conditions et consentement -->
+            <h2>Conditions et consentement</h2>
+            <div class="conditionphy">
+                <label><input type="checkbox" name="consentement" required>
+                    Je reconnais être en bonne condition physique et accepte les consignes de sécurité.
+                </label>
+            </div>
+            <!-- Bouton envoyer -->
+            <p id="event-form-message" class="event-form-message" role="status"></p>
+            <button type="submit">Envoyer le formulaire</button>
+        </form>
+</div>
+    </main>
+        <!-- Footer -->
+    <footer class="footer">
+        <!-- <a href="../Projethtml/contact.html">Nous contacter</a>
+        <p>Copyright © 2025
+            Powered by Khaled</p>
+        <a href="../Projethtml/mentionsLegales.html">Mentions légales</a>
+        <a href="../Projethtml/politiqueconf.html">Politique de confidentialité</a> -->
+    </footer>
+    
+    <script type ="module" src="../Projetjs/utilitaire.js"></script>
+    <script type="module" src="../Projetjs/form-evenement.js"></script>
+
+</body>
+
+</html>
