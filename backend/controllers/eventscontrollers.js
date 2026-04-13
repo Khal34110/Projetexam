@@ -3,6 +3,9 @@ import fs from "fs";
 import path from "path";
 import QRCode from "qrcode";
 
+// Ce fichier gere toute la logique des evenements :
+// lecture, creation, modification, suppression, QR code et options du formulaire.
+
 const VISUGPX_PAR_EVENEMENT = {
   181: "1396026536",
   182: "VmDvHr49ic",

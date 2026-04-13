@@ -1,6 +1,9 @@
 import db from "../config/database.js";
 import bcrypt from "bcrypt";
 
+// Ce fichier gere les utilisateurs :
+// lecture, creation, modification et suppression.
+
 const COLONNES_UTILISATEUR =
   "ID_utilisateur, Nom, Prenom, Email, Numero_de_telephone, ID_role";
 

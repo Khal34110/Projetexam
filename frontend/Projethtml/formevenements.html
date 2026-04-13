@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,7 +32,7 @@
             <ul>
                 <li><a href="accueil.html">ACCUEIL</a></li>
                 <li><a href="apropos.html">À PROPOS</a></li>
-                <li><a href="evenements.html">ÉVÉNEMENTS</a></li>
+                <li><a href="event.html">ÉVÉNEMENTS</a></li>
                 <li><a href="inscription.html">INSCRIPTION</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
             </ul>
@@ -57,20 +57,20 @@
             <!-- Input et labels description de l'événement -->
 
             <label>Nom de la randonnée :</label>
-            <input type="text" placeholder="Nom de la randonnée" name="nom_randonnee" required>
+            <input type="text" placeholder="Nom de la randonnée" name="Nom" required>
 
             <label>Organisateur / Association :</label>
             <input type="text" placeholder="Organisateur / Association" name="organisateur">
 
             <label>Date de l'événement :</label>
-            <input type="date" placeholder="Date de l'événement" name="date_evenement" required>
+            <input type="date" placeholder="Date de l'événement" name="Date_event" required>
 
             <label> <img src="../image/icone fauteuil.png" alt="image">Accessibilité :</label>
             <!-- Choix dans le select -->
-            <select name="accessibilite" id="">
+            <select name="Accessibilite" id="">
                 <option value="">-- Choisir --</option>
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
             </select>
 
             <label>Type de randonnée :</label>
@@ -95,7 +95,7 @@
             </select>
 
             <label>Dénivelé (m) :</label>
-            <input type="number" name="denivele" min="0">
+            <input type="number" name="Denivele" min="0">
 
             <label>Durée estimée (heures) :</label>
             <input type="text" name="duree">
@@ -104,20 +104,20 @@
             <input type="text" name="depart">
 
             <label>Heure de départ :</label>
-            <input type="time" name="heure_depart">
+            <input type="time" name="Heure_de_depart">
 
             <label>Point d’arrivée :</label>
-            <input type="text" name="arrivee">
+            <input type="text" name="Lieu_d_arrivee">
 
             <label>Heure d’arrivée estimée :</label>
-            <input type="time" name="heure_arrivee">
+            <input type="time" name="Heure_d_arrivee">
 
             <label>Itinéraire / description du parcours :</label>
             <textarea name="itineraire" rows="4"></textarea>
 
             <h2>Informations pratiques</h2>
             <label>Lieu de rendez-vous :</label>
-            <input type="text" name="lieu_rdv">
+            <input type="text" name="Lieu_de_rdv">
 
             <label>Parking disponible :</label>
             <div class="checkbox-group">
@@ -130,8 +130,8 @@
 
             <label>Point d’eau / ravitaillement :</label>
             <div class="checkbox-group">
-                <label><input type="radio" name="ravitaillement" value="oui"> Oui</label>
-                <label><input type="radio" name="ravitaillement" value="non"> Non</label>
+                <label><input type="radio" name="Point_d_eau_ravitaillement" value="1"> Oui</label>
+                <label><input type="radio" name="Point_d_eau_ravitaillement" value="0"> Non</label>
             </div>
 
             <label>Toilettes disponibles :</label>
@@ -140,28 +140,10 @@
                 <label><input type="radio" name="toilettes" value="non"> Non</label>
             </div>
             
-            <h2>Details de l'evenement en base</h2>
-
-            <label>Nom de l'evenement :</label>
-            <input type="text" name="Nom" placeholder="Nom visible sur la fiche detail">
+            <h2>Informations detaillees</h2>
 
             <label>Description :</label>
             <textarea name="Descriptif" rows="5" placeholder="Description detaillee de l'evenement"></textarea>
-
-            <label>Date de l'evenement :</label>
-            <input type="date" name="Date_event">
-
-            <label>Heure de depart :</label>
-            <input type="time" name="Heure_de_depart">
-
-            <label>Heure d'arrivee :</label>
-            <input type="time" name="Heure_d_arrivee">
-
-            <label>Lieu de rendez-vous :</label>
-            <input type="text" name="Lieu_de_rdv">
-
-            <label>Lieu d'arrivee :</label>
-            <input type="text" name="Lieu_d_arrivee">
 
             <label>Tarif :</label>
             <input type="number" name="Tarif" min="0" step="0.01" placeholder="Exemple : 20">
@@ -169,18 +151,8 @@
             <label>Carte parcours / lien VisuGPX :</label>
             <input type="text" name="Carte_parcours" placeholder="https://www.visugpx.com/...">
 
-            <label>Denivele (m) :</label>
-            <input type="number" name="Denivele" min="0">
-
             <label>Altitude maximale (m) :</label>
             <input type="number" name="Altitude_maximale" min="0">
-
-            <label>Point d'eau / ravitaillement :</label>
-            <select name="Point_d_eau_ravitaillement">
-                <option value="">-- Choisir --</option>
-                <option value="1">Oui</option>
-                <option value="0">Non</option>
-            </select>
 
            <!-- Liste du matériel recommandé -->
             <h2>Matériel recommandé</h2>
@@ -305,9 +277,10 @@
         <a href="../Projethtml/politiqueconf.html">Politique de confidentialité</a> -->
     </footer>
     
-    <script type ="module" src="../Projetjs/utilitaire.js"></script>
-    <script type="module" src="../Projetjs/form-evenement.js"></script>
-
+    <script type="module" src="../Projetjs/event.js"></script>
 </body>
 
 </html>
+
+
+

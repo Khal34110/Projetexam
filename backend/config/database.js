@@ -1,6 +1,8 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
 
+// Ce fichier cree la connexion MySQL partagee dans le backend.
+
 dotenv.config({ quiet: true });
 
 const configuration = {

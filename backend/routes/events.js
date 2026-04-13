@@ -9,6 +9,8 @@ import {
   updateEvent,
 } from "../controllers/eventscontrollers.js";
 
+// Routes de l'API des evenements.
+
 const router = express.Router();
 
 // Recuperer tous les evenements
@@ -17,7 +19,7 @@ router.get("/events", getEvents);
 // Recuperer les options du formulaire d'evenement
 router.get("/event-options", getEventFormOptions);
 
-// Recuperer un evenement par son id
+// Recuperer le QR code de la carte d'un evenement
 router.get("/events/:id/qrcode", getEventQrCode);
 
 // Recuperer un evenement par son id

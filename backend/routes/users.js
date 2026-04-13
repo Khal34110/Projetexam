@@ -8,6 +8,8 @@ import {
   updateUser,
 } from "../controllers/userscontrollers.js";
 
+// Routes de l'API des utilisateurs.
+
 const router = express.Router();
 
 // Petite route de test
