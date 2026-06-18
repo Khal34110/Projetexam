@@ -1,0 +1,2461 @@
+/* ==========================================================
+   PAGE DETAIL EVENEMENT
+   Ce fichier garde le style complet de la page detail.
+   Organisation :
+   1. Base et header
+   2. Menu mobile
+   3. Contenu principal
+   4. Carrousel
+   5. Description, details, carte, materiel
+   6. Boutons fixes et footer
+   7. Ajustements finaux de la page detail
+   ========================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+body {
+  background-image: url("../image/Cirque-de-Moureze-occitanie\ fond.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+
+}
+
+body.page-detail #header {
+  display: grid;
+  grid-template-areas:
+    "logo titre user"
+    "menu menu search";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  padding: 20px;
+  background-color: #0B4A30;
+  gap: 10px;
+}
+
+/* === LOGO === */
+body.page-detail .logo {
+  grid-area: logo;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* === UTILISATEUR === */
+body.page-detail .user {
+  grid-area: user;
+  display: grid;
+  height: 50px;
+  width: 50px;
+  justify-self: end;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* === TITRE === */
+body.page-detail #header .site-title {
+  grid-area: titre;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  color: white;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* === MENU === */
+body.page-detail .menu {
+  grid-area: menu;
+}
+
+body.page-detail .menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+body.page-detail .menu a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+body.page-detail .menu a:hover {
+  color: #a7f3d0;
+  /* vert clair au survol */
+  text-decoration: underline;
+}
+
+/* === BARRE DE RECHERCHE === */
+body.page-detail .search-bar {
+  grid-area: search;
+  justify-self: end;
+}
+
+body.page-detail .search-bar input {
+  border: 1px solid #aaa;
+  border-radius: 30px;
+  width: 250px;
+  height: 1.8rem;
+  padding: 0 0.8rem;
+}
+
+/* === BOUTON BURGER === */
+body.page-detail .burger {
+  display: none;
+  grid-area: burger;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 45px;
+  height: 45px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+}
+
+body.page-detail .burger span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animation burger -> croix */
+body.page-detail .burger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+body.page-detail .burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+body.page-detail .burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* === MENU MOBILE === */
+@media (max-width: 700px) {
+  body.page-detail #header {
+    grid-template-areas:
+      "logo titre burger"
+      "search search user";
+   grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgb(11, 74, 48);
+  }
+
+  body.page-detail #header .site-title {
+    grid-area: titre;
+    font-size: 1.2rem;
+    line-height: 1.1;
+    padding: 0 5px;
+  }
+
+  /* Logo image */
+  body.page-detail .logo {
+    grid-area: logo;
+    height: 60px;
+    width: 60px;
+    display: block;
+  }
+
+  /* Si le logo est dans un lien, on enleve l'effet lien */
+  body.page-detail a:has(.logo) {
+    text-decoration: none;
+  }
+
+  /* Menu off-canvas */
+  body.page-detail .menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    background: rgba(11, 74, 48, 0.97);
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+  }
+
+  body.page-detail .menu.active {
+    transform: translateX(0);
+  }
+
+  body.page-detail .menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  body.page-detail .menu a {
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* Afficher le burger sur mobile */
+  body.page-detail .burger {
+    display: flex;
+  }
+
+  body.page-detail.menu-open {
+    overflow: hidden;
+  }
+
+  body.page-detail .user {
+    grid-area: user;
+    margin-top: 10px;
+    padding: 5px;
+    height: 40px;
+    width: 40px;
+    place-content: center;
+    margin-bottom: 10px;
+  }
+
+  body.page-detail .search-bar{
+    grid-area: search;
+    width: min(70%, 320px);  
+    max-width: 100%;
+    min-width: 0;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    margin-left: 3.5rem;
+  }
+
+  body.page-detail .search-bar input{
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    
+  }
+}
+
+main {
+  display: grid;
+  grid-template-areas:
+    "tit"
+    "pic"
+    "desc"
+    "map";
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1350px;
+  margin: 0 auto;
+  width: min(92%, 1350px);
+}
+
+.toggle-aside {
+    position: fixed;
+    top: 190px;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 1000;
+    
+    /* Style du bouton */
+    background-color: #0B4A30;
+    color: white;
+    border: 4px solid #a7f3d0;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    line-height: 1;
+    /* Arrondir seulement le cote droit */
+    border-radius: 0 10px 10px 0;
+    transition: all 0.3s ease;
+}
+
+.toggle-aside:hover {
+    background-color: #033d2d;
+}
+
+.aside {
+    grid-area: side;
+    position: fixed; 
+    top: 0;
+    left: -280px; 
+    width: 260px; 
+    height: 100vh; 
+    margin-top: 0; 
+    
+    /* Style de fond et defilement */
+    background: rgba(255, 255, 255, 0.6); 
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 999;
+    
+    /* Animation de transition */
+    transition: left 0.4s ease-in-out;
+}
+
+/* Aside ouverte */
+.aside.open {
+    left: 0; 
+    top: 200px;
+}
+
+/* Bouton quand l'aside est ouverte */
+.toggle-aside.open {
+  top: 200px;
+    left: 250px; 
+    border-radius: 10px 0 0 10px; 
+  
+}
+
+.aside h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #033d2d;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.aside ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.aside ul li a {
+  text-decoration: none;
+  color: #0B4A30;
+  font-weight: bold;
+}
+
+.aside ul li a:hover {
+  color: #033d2d;
+  /* couleur au survol */
+}
+
+h1,
+h2 {
+  grid-area: tit;
+  text-align: center;
+  margin-top: 30px;
+  color: #033d2d;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.carrousel {
+  position: relative;
+  grid-area: pic;
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #00000020;
+
+}
+
+.carrousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carrousel img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 15px;
+  box-shadow: 0 0 8px rgba(0, 121, 107, 0.6);
+  border: 2px solid #a7f3d0;
+}
+
+/* === Boutons === */
+.carrousel button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 30%;
+  z-index: 10;
+ 
+}
+
+.carrousel .prev {
+  left: 10px;
+}
+
+.carrousel .next {
+  right: 10px;
+}
+
+.carrousel button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carrousel-counter {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 10;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-weight: bold;
+}
+
+.carrousel-counter[hidden],
+.carrousel button[hidden] {
+  display: none;
+}
+
+.event {
+  grid-area: desc;
+}
+
+.event h4 {
+  text-align: left;
+  margin-bottom: 15px;
+  color: #033d2d;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 20px 0 0 0;
+
+}
+
+.event ul {
+  column-count: 2;
+  /* Deux colonnes */
+  list-style: none;
+  gap: 30px;
+}
+
+.descriptionEvenement {
+  grid-area: desc;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 121, 107, 0.6);
+  border: 4px solid #a7f3d0;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+
+}
+
+.descriptionEvenement p {
+  line-height: 1.2;
+  color: #033d2d;
+  margin: 0 60px 0 60px;
+  font-size: 1.2rem;
+  padding: 5px;
+
+}
+
+.descriptionEvenement h3 {
+  color: #033d2d;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.descriptionEvenement h4 {
+  text-align: center;
+  margin: 30px 0 30px 0;
+  color: #033d2d;
+  font-size: 2rem;
+}
+
+#detail-map-text {
+display: none;
+}
+
+#detail-status {
+  display: none;
+}
+
+#detail-map-link {
+  display: none;
+}
+
+.detailsEvenement li {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #0B4A30;
+  font-size: 1.2rem;
+  padding: 2px;
+
+}
+
+.detailsEvenement h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #033d2d;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 20px 0 20px 0;
+}
+
+.detailsEvenement ul {
+  color: #033d2d;
+  margin: 0 20px 50px 60px;
+
+}
+
+.detail-inputs-evenement {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 25px;
+  margin: 0 40px 40px;
+}
+
+.detail-inputs-evenement label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #033d2d;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.detail-inputs-evenement input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #a7f3d0;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #0B4A30;
+  font-size: 1rem;
+  box-shadow: 0 0 5px rgba(0, 121, 107, 0.3);
+}
+
+.detail-inputs-evenement input:focus {
+  outline: none;
+  border-color: #0B4A30;
+}
+
+.materielsEvenement h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #033d2d;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 20px 0;
+}
+
+.detail-materiels-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 0 40px 40px;
+}
+
+.detail-materiels-title {
+  margin: 0 0 10px;
+  padding: 0;
+  color: #033d2d;
+  font-size: 1.2rem;
+}
+
+.detail-materiel-liste {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  color: #0B4A30;
+}
+
+.detail-materiel-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid #a7f3d0;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #0B4A30;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.detail-materiel-input input {
+  transform: scale(1.2);
+  accent-color: #0B4A30;
+}
+
+.detail-materiel-vide {
+  margin: 0;
+  color: #0B4A30;
+  font-size: 1rem;
+}
+
+h5 {
+  color: #033d2d;
+  margin-left: 4rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 10px 0 10px 0;
+}
+
+.map {
+  grid-area: map;
+  width: 80%;
+  margin: 0 auto;
+  border: none;
+  margin-top: 40px;
+}
+
+#detail-map-frame-container {
+  flex: 1;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+}
+
+.detail-map-content {
+  display: flex;
+  align-items: stretch; /* important */
+  gap: 20px;
+}
+
+.detail-map-qr-card {
+  flex: 0 0 240px;
+  max-width: 260px;
+  margin: 20px 0 0;
+  padding: 16px;
+  border: 4px solid #a7f3d0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.detail-map-qr-card[hidden] {
+  display: none;
+}
+
+.detail-map-qr-title {
+  margin: 0 0 10px;
+  padding: 0;
+  color: #033d2d;
+  font-size: 1.1rem;
+}
+
+.detail-map-qr-image {
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+  background: white;
+  border-radius: 8px;
+}
+
+.detail-map-qr-card 
+.detail-map-qr-text {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.detail-map-qr-link {
+  color: #0B4A30;
+  font-weight: bold;
+}
+
+.detail-map-qr-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.detail-map-share-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 3px solid #a7f3d0;
+  border-radius: 10px;
+  background-color: #0B4A30;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.detail-map-share-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.detail-map-share-button:hover {
+  background-color: #033d2d;
+}
+
+.detail-map-share-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.detail-map-share-status {
+  min-height: 18px;
+  margin: 8px 0 0;
+  color: #033d2d;
+  font-size: 0.9rem;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 30px;
+
+}
+
+.inscription {
+  grid-area: desc;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.inscription p {
+  font-size: 1.2rem;
+  color: #033d2d;
+  margin-bottom: 10px;
+}
+
+.bouton-ins button {
+  margin-bottom: 15px;
+  background-color: #0B4A30;
+  border: 4px solid #a7f3d0;
+  padding: 14px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.bouton-ins a {
+  text-decoration: none;
+  color: white;
+}
+
+.bouton-ins:hover {
+  transform: scale(1.03);
+}
+
+.inscription .lien {
+  font-size: 1.1rem;
+  color: #033d2d;
+  margin-top: 1rem;
+  padding: 20px;
+}
+
+.map iframe {
+  width: 100%;
+  height: 440px;
+  border: none;
+  border-radius: 30px;
+}
+
+/* --- Style du bouton Sticky --- */
+.sticky-button-container {
+  position: fixed;
+  top: 220px;
+  right: 0;
+  z-index: 1000;
+
+}
+
+.sticky-inscription-btn {
+  background-color: #0B4A30;
+  border: 4px solid #a7f3d0;
+  padding:  10px  10px;
+  border-radius: 10px 0 0 10px ;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+
+}
+
+.sticky-button-container a {
+  text-decoration: none;
+}
+
+.sticky-inscription-btn:hover {
+  transform: scale(1.05);
+  /* Effet au survol */
+  background-color: #033d2d;
+}
+
+/* === RESPONSIVE  === */
+@media (max-width: 700px) {
+
+  /* --- STRUCTURE PRINCIPALE  --- */
+ main {
+        /* On retire "side" de grid-template-areas car l'aside est en position fixed */
+        grid-template-areas:
+            "tit"
+            "pic"
+            "desc"
+            "map"; /* Assurez-vous d'avoir bien "map" ici aussi */
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+        width: 90%;
+    }
+    /* --- ASIDE MOBILE --- */
+    .aside {
+        width: calc(70% - 40px); 
+        left: -100%;
+    }
+    /* Aside ouverte sur mobile */
+    .aside.open {
+        left: 0;
+        top: 110px;
+        max-width:60% ;
+    }
+    /* --- BOUTON DE BASCULEMENT DE L'ASIDE --- */
+    .toggle-aside {
+        top: 165px; 
+        transform: none; 
+    }
+    /* Bouton de l'aside ouverte sur mobile */
+    .toggle-aside.open {
+        left: calc(67% - 40px); 
+        top : 110px;
+        border-radius: 0 10px 10px 0;
+    }
+
+  .aside ul li a {
+    display: block;
+    word-wrap: break-word;
+    font-size: 0.7rem;
+  }
+  /* Titre de l'evenement */
+  h1,
+  h2 {
+    margin-top: 30px;
+    font-size: 1.4rem;
+  }
+  .aside h3 {
+    font-size: 1.2rem;
+  }
+  h4 {
+    font-size: 0.2rem;
+    padding: 10px 0 10px 0;
+  }
+  /* --- CARROUSEL --- */
+  .carrousel {
+    margin: 20px auto;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+  }
+  /* Description et details de l'evenement */
+  .descriptionEvenement {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .descriptionEvenement p {
+    margin: 0 10px 0 10px;
+    font-size: 1rem;
+  }
+  .descriptionEvenement h4,
+  .detailsEvenement h4 {
+    font-size: 1.4rem;
+    margin: 20px 0;
+  }
+  /* une seule colonne */
+  .detailsEvenement ul {
+    column-count: 1;
+    margin: 0 10px 30px 30px;
+  }
+  .detail-inputs-evenement {
+    grid-template-columns: 1fr;
+    margin: 0 10px 30px;
+  }
+  .detailsEvenement li {
+    font-size: 0.9rem;
+    padding: 1px;
+  }
+  .detail-materiels-group {
+    grid-template-columns: 1fr;
+    margin: 0 10px 30px;
+  }
+  /* --- CARTE  --- */
+   .map {
+    width: 90%;
+    margin: 20px auto 0;
+  }
+  .detail-map-content {
+    flex-direction: column;
+  }
+  .detail-map-qr-card {
+    flex: none;
+    margin: 15px auto 0;
+    width: 100%;
+  }
+  .map iframe {
+    height: 220px !important;
+  }
+}
+
+/* --- BOUTON D'INSCRIPTION FIXE --- */
+  .sticky-button-container {
+    position: fixed;
+    top: 165px;
+    bottom: auto;
+  }
+
+.sticky-inscription-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 0.7rem;
+  }
+
+/* --- BOUTONS D'INSCRIPTION STANDARD --- */
+  .bouton-ins button {
+    padding: 8px 10px;
+    font-size: 0.7em;
+    width: fit-content;
+  }
+
+/* footer */
+body.page-detail .footer {
+  background: #033d2d;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+  gap: 10px;
+  font-size: 20px;
+  bottom: 0;
+}
+
+body.page-detail .footer p {
+  margin: 0;
+}
+
+body.page-detail .footer a {
+  color: white;
+  text-decoration: none;
+}
+
+body.page-detail .footer a:hover {
+  text-decoration: underline;
+  color: #a7f3d0; /* vert clair au survol */
+}
+
+/* Footer mobile */
+@media (max-width: 700px) {
+  body.page-detail .footer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    padding: 20px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+body.page-detail #header .site-title {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Base visuelle */
+body {
+  min-height: 100vh;
+  color: #143726;
+}
+
+h1,
+h2,
+h3,
+h4,
+body.page-detail #header .site-title {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  color: #0B4A30;
+  line-height: 1.08;
+}
+
+h2 {
+  color: #0B4A30;
+  line-height: 1.15;
+}
+
+h3,
+h4 {
+  line-height: 1.2;
+}
+
+body.page-detail #header .site-title {
+  letter-spacing: 0.02em;
+}
+
+body.page-detail .menu a {
+  letter-spacing: 0.03em;
+}
+
+/* Variables et style commun de cette page */
+html {
+}
+
+body {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  color: #143726;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 18% 15%, rgba(167, 243, 208, 0.2), transparent 28rem),
+    linear-gradient(135deg, rgba(251, 247, 239, 0.28), rgba(236, 246, 238, 0.12)),
+    url("../image/Cirque-de-Moureze-occitanie fond.png") center / cover fixed no-repeat;
+}
+
+main {
+  flex: 1;
+}
+
+body.page-detail #header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 1.6rem;
+  background:
+    linear-gradient(135deg, rgba(3, 61, 45, 0.96), rgba(11, 74, 48, 0.92)),
+    radial-gradient(circle at 8% 15%, rgba(167, 243, 208, 0.2), transparent 16rem);
+  border-bottom: 1px solid rgba(167, 243, 208, 0.35);
+  box-shadow: 0 14px 34px rgba(3, 61, 45, 0.22);
+}
+
+body.page-detail .logo {
+  border: 3px solid rgba(167, 243, 208, 0.78);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+body.page-detail .user {
+  border: 2px solid rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+body.page-detail #header .site-title,
+h1,
+h2,
+h3,
+h4,
+h5,
+.titre-evenement h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+body.page-detail #header .site-title {
+  font-size: 1.8rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+}
+
+body.page-detail .menu ul {
+  gap: 2rem;
+}
+
+body.page-detail .menu a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.2rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+body.page-detail .menu a::after {
+  content: "";
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  bottom: 0.1rem;
+  height: 2px;
+  border-radius: 999px;
+  background: #A7F3D0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+body.page-detail .menu a:hover,
+body.page-detail .menu a.active {
+  color: #A7F3D0;
+  text-decoration: none;
+}
+
+body.page-detail .menu a:hover::after,
+body.page-detail .menu a.active::after {
+  transform: scaleX(1);
+}
+
+body.page-detail .footer {
+  margin-top: auto;
+  background:
+    linear-gradient(135deg, #033D2D, #062d22);
+  border-top: 1px solid rgba(167, 243, 208, 0.35);
+  box-shadow: 0 -12px 30px rgba(3, 61, 45, 0.14);
+}
+
+body.page-detail .footer a {
+  font-weight: 700;
+}
+
+body.page-detail .footer a:hover {
+  color: #A7F3D0;
+  text-decoration: none;
+}
+
+.conf button,
+button[type="submit"],
+.event-form button[type="submit"],
+.bouton-ins button,
+.sticky-inscription-btn {
+  box-shadow: 0 12px 22px rgba(3, 61, 45, 0.2);
+}
+
+.conf button:hover,
+button[type="submit"]:hover,
+.event-form button[type="submit"]:hover,
+.bouton-ins button:hover,
+.sticky-inscription-btn:hover {
+  transform: translateY(-2px);
+}
+
+input,
+select,
+textarea {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+body.page-detail .descriptionEvenement {
+  background-color: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(167, 243, 208, 0.78);
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(8, 44, 29, 0.18);
+}
+
+body.page-detail main {
+  width: min(94%, 1320px);
+}
+
+body.page-detail .carrousel {
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(8, 44, 29, 0.18);
+}
+
+body.page-detail .carrousel img {
+  border-color: rgba(167, 243, 208, 0.7);
+  border-radius: 26px;
+}
+
+body.page-detail .descriptionEvenement {
+  border-width: 1px;
+  padding: 1.8rem;
+}
+
+body.page-detail .detail-inputs-evenement input,
+body.page-detail .detail-materiel-input,
+body.page-detail .detail-map-qr-card {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(11, 74, 48, 0.12);
+  border-radius: 16px;
+}
+
+main,
+.container,
+.contenu,
+.one-form,
+.connexion .form,
+.inscription,
+.evenement-form,
+.mentions-legales,
+.politiqueConfidentialite,
+.descriptionEvenement {
+  animation: rh-page-reveal 0.55s ease both;
+}
+
+@keyframes rh-page-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}@media (max-width: 900px) {
+body.page-detail .menu ul {
+    gap: 1.4rem;
+  }
+}
+
+@media (max-width: 700px) {
+body {
+    background-attachment: scroll;
+  }
+
+body.page-detail #header {
+    position: sticky;
+    padding: 0.75rem 1rem;
+  }
+
+body.page-detail .menu {
+    box-shadow: -16px 0 40px rgba(0, 0, 0, 0.22);
+  }
+
+body.page-detail .menu a {
+    justify-content: center;
+    min-width: 160px;
+  }
+
+body.page-detail .search-bar {
+    margin-left: 0;
+  }
+}
+
+/* Typographie finale */
+body {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button,
+a,
+span {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+main {
+  font-size: 1rem;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+body.page-detail #header .site-title,
+.titre-evenement h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+h1,
+#detail-name {
+  font-size: 2.6rem;
+  line-height: 1.06;
+}
+
+h2,
+section h2 {
+  font-size: 2rem;
+  line-height: 1.14;
+}
+
+h3,
+.aside h3,
+main h3 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+h4,
+.descriptionEvenement h4,
+.detailsEvenement h4,
+.materielsEvenement h4 {
+  font-size: 1.35rem;
+  line-height: 1.22;
+}
+
+h5,
+.detail-materiels-title,
+.detail-map-qr-title,
+.reglement h5,
+.titre-evenement h3 {
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+body.page-detail .menu a {
+  font-size: 0.95rem;
+}
+
+body.page-detail #header .site-title {
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+body.page-detail .footer,
+body.page-detail .footer p,
+body.page-detail .footer a,
+.sur-titre,
+.section-etiquette,
+.message-liste-evenements,
+.details-evenement p,
+.detail-map-share-status {
+  font-size: 0.95rem;
+}
+
+.descriptionEvenement p,
+.reglement p,
+.assurance p,
+.merci p {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+input,
+select,
+textarea {
+  min-height: 2.85rem;
+}
+
+textarea {
+  line-height: 1.6;
+}
+
+button[type="submit"],
+.conf button,
+.event-form button[type="submit"],
+.bouton-ins button,
+.sticky-inscription-btn {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.info-box h4,
+.info-box p,
+.detail-inputs-evenement label,
+.detail-inputs-evenement input,
+.detail-materiel-input,
+.materiel-liste label,
+.materiel-nom {
+  font-size: 1rem;
+}
+
+body.page-detail .descriptionEvenement,
+body.page-detail .detail-inputs-evenement input,
+body.page-detail .detail-materiel-input,
+body.page-detail .detail-map-qr-card {
+  border-width: 2px;
+}
+
+input,
+select,
+textarea {
+  border-width: 1px;
+}
+
+input:hover,
+select:hover,
+textarea:hover,
+input:focus,
+select:focus,
+textarea:focus {
+  border-width: 2px;
+}
+
+@media (max-width: 700px) {
+body {
+    font-size: 1rem;
+  }
+
+body.page-detail .footer,
+body.page-detail .footer p,
+body.page-detail .footer a {
+    font-size: 0.95rem;
+  }
+
+input,
+select,
+textarea {
+    min-height: 2.65rem;
+  }
+}
+
+/* Mise en page detail evenement */
+body.page-detail main {
+  width: min(94%, 1180px);
+  gap: 1.4rem;
+  padding: 1.5rem;
+}
+
+body.page-detail .imageEvent {
+  width: min(100%, 1040px);
+  margin: 1.4rem auto 0;
+  padding: 1.6rem;
+  border: 2px solid rgba(167, 243, 208, 0.78);
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(248, 251, 246, 0.52));
+  box-shadow: 0 24px 60px rgba(8, 44, 29, 0.18);
+}
+
+body.page-detail #detail-name {
+  max-width: 900px;
+  margin: 0 auto 1.15rem;
+  color: #0B4A30;
+  text-align: center;
+}
+
+body.page-detail .carrousel {
+  max-width: 980px;
+  margin: 0 auto;
+  border-radius: 24px;
+  background: rgba(3, 61, 45, 0.12);
+}
+
+body.page-detail .carrousel img {
+  height: 360px;
+  border-radius: 24px;
+}
+
+body.page-detail .descriptionEvenement {
+  padding: 1.9rem;
+}
+
+body.page-detail .descriptionEvenement h4,
+body.page-detail .detailsEvenement h4,
+body.page-detail .materielsEvenement h4 {
+  position: relative;
+  margin: 1.4rem 0 1.1rem;
+  padding: 0 0 0.75rem;
+  text-align: center;
+}
+
+body.page-detail .descriptionEvenement h4::after,
+body.page-detail .detailsEvenement h4::after,
+body.page-detail .materielsEvenement h4::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 86px;
+  height: 3px;
+  border-radius: 999px;
+  background: #A7F3D0;
+  transform: translateX(-50%);
+}
+
+body.page-detail #detail-description {
+  max-width: 860px;
+  margin: 0 auto 1.4rem;
+  padding: 0;
+  line-height: 1.78;
+  text-align: left;
+}
+
+body.page-detail .detail-inputs-evenement {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+  margin: 0 0 2rem;
+}
+
+body.page-detail .detail-inputs-evenement label {
+  gap: 0.32rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+body.page-detail .detail-inputs-evenement input {
+  min-height: 1.85rem;
+  padding: 0.22rem 0.65rem;
+  border-width: 2px;
+  font-size: 0.96rem;
+  line-height: 1.2;
+  box-shadow: inset 0 1px 4px rgba(3, 61, 45, 0.08);
+}
+
+body.page-detail .detail-materiels-group {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  margin: 0 0 1.4rem;
+}
+
+body.page-detail .detail-materiels-title {
+  margin: 0 0 0.45rem;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+body.page-detail .materielsEvenement {
+  margin-top: 1.35rem;
+}
+
+body.page-detail .materielsEvenement h4 {
+  margin-top: 2.6rem;
+  margin-bottom: 1.35rem;
+}
+
+body.page-detail .detail-materiel-input {
+  min-height: 1.85rem;
+  padding: 0.22rem 0.65rem;
+  gap: 0.45rem;
+  border-radius: 9px;
+  font-size: 0.96rem;
+  line-height: 1.25;
+}
+
+body.page-detail .detail-materiel-liste {
+  gap: 0.45rem;
+}
+
+body.page-detail .detail-materiel-input input {
+  width: 0.85rem;
+  height: 0.85rem;
+  min-height: 0;
+  margin: 0;
+  transform: scale(1);
+}
+
+body.page-detail #detail-materiel-recommande {
+  margin-top: 0.35rem;
+}
+
+body.page-detail .map {
+  width: min(100%, 940px);
+  margin: 2rem auto 0;
+}
+
+body.page-detail .detail-map-content {
+  gap: 1rem;
+}
+
+body.page-detail .map iframe {
+  height: 340px;
+  border-radius: 22px;
+}
+
+body.page-detail .inscription {
+  width: min(100%, 760px);
+  margin: 2rem auto 0;
+  padding: 1.25rem;
+  border: 2px solid rgba(167, 243, 208, 0.78);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 14px 30px rgba(8, 44, 29, 0.12);
+}
+
+body.page-detail .inscription p {
+  margin: 0 0 0.8rem;
+}
+
+body.page-detail .inscription .lien {
+  margin-top: 0.6rem;
+  padding: 0;
+}
+
+body.page-detail .sticky-button-container {
+  top: 44%;
+  transform: translateY(-50%);
+}
+
+body.page-detail .sticky-inscription-btn {
+  min-width: 96px;
+  min-height: 44px;
+  padding: 0.6rem 0.8rem;
+  border-radius: 14px 0 0 14px;
+}
+
+@media (max-width: 700px) {
+body.page-detail main {
+    width: min(94%, 100%);
+    padding: 0.85rem;
+  }
+
+body.page-detail .imageEvent {
+    margin-top: 0.85rem;
+    padding: 1rem;
+  }
+
+body.page-detail .carrousel {
+    height: auto;
+  }
+
+body.page-detail .carrousel img {
+    height: 260px;
+  }
+
+body.page-detail #detail-description {
+    text-align: left;
+  }
+
+body.page-detail .detail-inputs-evenement,
+body.page-detail .detail-materiels-group {
+    margin-bottom: 1.4rem;
+  }
+
+body.page-detail .sticky-button-container {
+    top: auto;
+    right: 1rem;
+    bottom: 4rem;
+    transform: none;
+  }
+
+body.page-detail .sticky-inscription-btn {
+    width: auto;
+    height: auto;
+    border-radius: 999px;
+  }
+}
+
+/* Aside de la page detail */
+body.page-detail {
+}
+
+body.page-detail .toggle-aside {
+  top: 44%;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 2px solid #A7F3D0;
+  border-left: 0;
+  border-radius: 0 14px 14px 0;
+  background: #0B4A30;
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(8, 44, 29, 0.22);
+  transform: translateY(-50%);
+  z-index: 1200;
+}
+
+body.page-detail .toggle-aside.open {
+  top: 44%;
+  left: min(320px, 86vw);
+  border-left: 2px solid #A7F3D0;
+  border-radius: 14px;
+  transform: translateY(-50%);
+}
+
+body.page-detail .aside {
+  top: 112px;
+  left: 0;
+  width: min(320px, 86vw);
+  height: calc(100vh - 112px);
+  max-width: none;
+  margin: 0;
+  padding: 0.9rem 0.72rem 1.05rem;
+  border-right: 2px solid rgba(167, 243, 208, 0.78);
+  background-color: rgba(247, 252, 246, 0.94);
+  box-shadow: 18px 0 44px rgba(8, 44, 29, 0.24);
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1190;
+}
+
+body.page-detail .aside.open {
+  top: 112px;
+  left: 0;
+  transform: translateX(0);
+}
+
+body.page-detail .aside h3 {
+  margin: 0 0 0.8rem;
+  color: #033D2D;
+  font-size: 1.3rem;
+}
+
+body.page-detail .aside ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+  min-height: 2rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+body.page-detail .aside ul li a {
+  display: block;
+  padding: 0.46rem 0.65rem;
+  border: 1px solid rgba(11, 74, 48, 0.14);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.64);
+  color: #0B4A30;
+  font-size: 0.9rem;
+  line-height: 1.18;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+body.page-detail .aside ul li a:hover,
+body.page-detail .aside ul li a.active {
+  border-color: rgba(11, 74, 48, 0.42);
+  background: rgba(167, 243, 208, 0.34);
+  color: #033D2D;
+  transform: translateX(4px);
+}
+
+body.page-detail .aside ul li a.active {
+  box-shadow: inset 4px 0 0 #0B4A30;
+}
+
+body.page-detail .aside-message {
+  display: block;
+  padding: 0.5rem 0.65rem;
+  border: 1px dashed rgba(11, 74, 48, 0.26);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.58);
+  color: #52705F;
+  font-size: 0.9rem;
+  font-weight: 700;
+  list-style: none;
+}
+
+@media (max-width: 700px) {
+body.page-detail {
+  }
+
+body.page-detail .toggle-aside {
+    top: auto;
+    bottom: 4rem;
+    transform: none;
+  }
+
+body.page-detail .toggle-aside.open {
+    top: auto;
+    bottom: 4rem;
+    left: min(82vw, 320px);
+    transform: none;
+  }
+
+body.page-detail .aside {
+    width: min(82vw, 320px);
+    padding: 1rem 0.85rem 1.25rem;
+  }
+
+body.page-detail .aside ul li a {
+    font-size: 0.86rem;
+  }
+}
+
+/* Harmonie de la page detail */
+body.page-detail {
+}
+
+body.page-detail .imageEvent,
+body.page-detail .descriptionEvenement {
+  border: 2px solid rgba(167, 243, 208, 0.78);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: 0 24px 60px rgba(8, 44, 29, 0.18);
+}
+
+body.page-detail .descriptionEvenement {
+  padding: 1.7rem;
+}
+
+body.page-detail .carrousel {
+  background: rgba(3, 61, 45, 0.08);
+  box-shadow: none;
+}
+
+body.page-detail .descriptionEvenement h4,
+body.page-detail .detailsEvenement h4,
+body.page-detail .materielsEvenement h4 {
+  margin: 2rem auto 1.15rem;
+  padding-bottom: 0.65rem;
+  color: #0B4A30;
+  font-size: 1.55rem;
+  line-height: 1.16;
+}
+
+body.page-detail .descriptionEvenement > h4:first-child {
+  margin-top: 0.15rem;
+}
+
+body.page-detail #detail-description {
+  margin-bottom: 2rem;
+}
+
+body.page-detail .detailsEvenement,
+body.page-detail .materielsEvenement {
+  margin-top: 2rem;
+}
+
+body.page-detail .detail-inputs-evenement {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem 1rem;
+  margin-bottom: 1.85rem;
+}
+
+body.page-detail .detail-info-group {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+  padding: 0.85rem;
+  border: 1px solid rgba(167, 243, 208, 0.58);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(248, 251, 246, 0.4));
+  box-shadow: 0 12px 24px rgba(8, 44, 29, 0.08);
+}
+
+body.page-detail .detail-info-group-title {
+  margin: 0 0 0.12rem;
+  padding: 0;
+  color: #0B4A30;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+body.page-detail .detail-info-card {
+  min-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.18rem;
+  padding: 0.58rem 0.7rem;
+  border: 1px solid rgba(11, 74, 48, 0.14);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.64));
+  box-shadow: inset 0 1px 3px rgba(3, 61, 45, 0.05);
+}
+
+body.page-detail .detail-info-label {
+  color: #2F6B53;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+body.page-detail .detail-info-value {
+  color: #033D2D;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+body.page-detail .detail-inputs-evenement label {
+  gap: 0.28rem;
+  color: #2F6B53;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+}
+
+body.page-detail .detail-inputs-evenement input,
+body.page-detail .detail-materiel-input {
+  border-width: 1px;
+  border-color: rgba(11, 74, 48, 0.14);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.64));
+  color: #033D2D;
+  box-shadow: inset 0 1px 3px rgba(3, 61, 45, 0.05);
+}
+
+body.page-detail .detail-inputs-evenement input {
+  min-height: 1.75rem;
+  padding: 0.16rem 0.62rem;
+  font-size: 0.92rem;
+  line-height: 1.16;
+}
+
+body.page-detail .detail-materiels-group {
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+body.page-detail .detail-materiels-group > div {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+  padding: 0.85rem;
+  border: 1px solid rgba(167, 243, 208, 0.58);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(248, 251, 246, 0.4));
+  box-shadow: 0 12px 24px rgba(8, 44, 29, 0.08);
+}
+
+body.page-detail .detail-materiels-title {
+  margin: 0 0 0.12rem;
+  color: #0B4A30;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+body.page-detail .detail-materiel-liste {
+  gap: 0.5rem;
+}
+
+body.page-detail .detail-materiel-input {
+  min-height: 1.75rem;
+  padding: 0.18rem 0.62rem;
+  font-size: 0.92rem;
+  line-height: 1.18;
+}
+
+body.page-detail #detail-materiel-recommande {
+  margin-top: 0;
+}
+
+body.page-detail .map {
+  margin-top: 2rem;
+}
+
+body.page-detail .inscription {
+  width: min(100%, 620px);
+  margin-top: 2rem;
+  padding: 0.95rem 1.15rem;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(248, 251, 246, 0.52));
+}
+
+body.page-detail .inscription p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+body.page-detail .inscription p span,
+body.page-detail .inscription p a {
+  display: block;
+  padding: 0.2rem 0;
+}
+
+body.page-detail .bouton-ins button {
+  min-height: 2.35rem;
+  padding: 0.55rem 1rem;
+  border-radius: 12px;
+}
+
+body.page-detail .toggle-aside,
+body.page-detail .sticky-inscription-btn {
+  height: 40px;
+  min-height: 40px;
+  border: 2px solid #A7F3D0;
+  background: #0B4A30;
+  box-shadow: 0 14px 28px rgba(8, 44, 29, 0.22);
+}
+
+body.page-detail .toggle-aside {
+  border-left: 0;
+}
+
+body.page-detail .toggle-aside.open {
+  border-left: 2px solid #A7F3D0;
+}
+
+body.page-detail .sticky-inscription-btn {
+  min-width: 92px;
+  padding: 0 0.68rem;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 700px) {
+body.page-detail {
+  }
+
+body.page-detail .descriptionEvenement {
+    padding: 1rem;
+  }
+
+body.page-detail .detail-inputs-evenement {
+    gap: 0.75rem;
+  }
+
+body.page-detail .detail-info-group {
+    padding: 0.75rem;
+  }
+
+body.page-detail .detail-materiels-group {
+    gap: 0.9rem;
+  }
+
+body.page-detail .detail-materiels-group > div {
+    padding: 0.75rem;
+  }
+
+body.page-detail .toggle-aside,
+body.page-detail .sticky-inscription-btn {
+    height: 38px;
+    min-height: 38px;
+  }
+}
+
+/* Resume, parcours et rythme */
+body.page-detail .detail-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  width: min(100%, 880px);
+  margin: -0.25rem auto 1.2rem;
+}
+
+body.page-detail .detail-summary-item {
+  min-width: 128px;
+  padding: 0.46rem 0.72rem;
+  border: 1px solid rgba(167, 243, 208, 0.72);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: 0 10px 20px rgba(8, 44, 29, 0.08);
+}
+
+body.page-detail .detail-summary-label {
+  display: block;
+  color: #2F6B53;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+body.page-detail .detail-summary-value {
+  display: block;
+  margin-top: 0.16rem;
+  color: #033D2D;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+body.page-detail .carrousel {
+  max-width: 920px;
+}
+
+body.page-detail .carrousel img {
+  height: 300px;
+}
+
+body.page-detail .detailsEvenement,
+body.page-detail .map,
+body.page-detail .materielsEvenement,
+body.page-detail .inscription {
+  position: relative;
+}
+
+body.page-detail .detailsEvenement::before,
+body.page-detail .map::before,
+body.page-detail .materielsEvenement::before {
+  content: "";
+  display: block;
+  width: min(150px, 42%);
+  height: 1px;
+  margin: 0 auto 1.25rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, transparent, rgba(11, 74, 48, 0.34), transparent);
+}
+
+body.page-detail .map {
+  margin-top: 2rem;
+}
+
+body.page-detail .detail-parcours-title {
+  margin-top: 0;
+}
+
+body.page-detail .detail-info-card-key .detail-info-value {
+  align-self: flex-start;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 74, 48, 0.12);
+  background: rgba(167, 243, 208, 0.28);
+  color: #033D2D;
+  font-size: 0.88rem;
+  line-height: 1.1;
+}
+
+body.page-detail #detail-input-difficulte {
+  background: rgba(251, 191, 36, 0.22);
+}
+
+body.page-detail #detail-input-tarif {
+  background: rgba(255, 255, 255, 0.58);
+}
+
+body.page-detail #detail-input-accessibilite {
+  background: rgba(167, 243, 208, 0.36);
+}
+
+body.page-detail .inscription {
+  text-align: center;
+}
+
+body.page-detail .inscription p {
+  margin: 0;
+  color: #143726;
+}
+
+body.page-detail .inscription a {
+  color: #0E4A38;
+  font-weight: 800;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+@media (max-width: 700px) {
+body.page-detail .detail-summary {
+    gap: 0.45rem;
+    margin-bottom: 0.9rem;
+  }
+
+body.page-detail .detail-summary-item {
+    min-width: calc(50% - 0.45rem);
+    padding: 0.42rem 0.55rem;
+  }
+
+body.page-detail .carrousel img {
+    height: 230px;
+  }
+
+body.page-detail .detailsEvenement::before,
+body.page-detail .map::before,
+body.page-detail .materielsEvenement::before,
+body.page-detail .inscription::before {
+    margin-bottom: 0.9rem;
+  }
+}
+
+/* Correctifs responsive finaux pour la page detail evenement.
+   Ces regles restent en fin de fichier pour neutraliser les anciens styles. */
+body.page-detail {
+  overflow-x: hidden;
+}
+
+body.page-detail img,
+body.page-detail iframe {
+  max-width: 100%;
+}
+
+body.page-detail .descriptionEvenement,
+body.page-detail .imageEvent,
+body.page-detail .detail-info-card,
+body.page-detail .detail-materiel-input,
+body.page-detail .detail-map-qr-card {
+  min-width: 0;
+}
+
+body.page-detail .detail-info-value,
+body.page-detail .detail-materiel-input span,
+body.page-detail #detail-description,
+body.page-detail .aside ul li a {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 900px) {
+  body.page-detail main {
+    width: 100%;
+    max-width: none;
+    padding: 1rem;
+  }
+
+  body.page-detail .imageEvent,
+  body.page-detail .descriptionEvenement {
+    width: min(100%, 100%);
+  }
+
+  body.page-detail .map {
+    width: 100%;
+  }
+
+  body.page-detail .detail-map-content {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  body.page-detail .detail-map-qr-card {
+    width: min(100%, 320px);
+    max-width: none;
+    margin: 1rem auto 0;
+  }
+}
+
+@media (max-width: 700px) {
+  body.page-detail {
+    background-attachment: scroll;
+  }
+
+  body.page-detail main {
+    width: 100%;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+
+  body.page-detail .imageEvent,
+  body.page-detail .descriptionEvenement {
+    padding: 0.85rem;
+    border-radius: 18px;
+  }
+
+  body.page-detail #detail-name {
+    font-size: 1.65rem;
+  }
+
+  body.page-detail .detail-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  body.page-detail .detail-summary-item {
+    min-width: 0;
+  }
+
+  body.page-detail .carrousel {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 18px;
+  }
+
+  body.page-detail .carrousel img {
+    height: 230px;
+    border-radius: 18px;
+  }
+
+  body.page-detail .carrousel button {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 1.35rem;
+  }
+
+  body.page-detail .descriptionEvenement h4,
+  body.page-detail .detailsEvenement h4,
+  body.page-detail .materielsEvenement h4 {
+    font-size: 1.25rem;
+  }
+
+  body.page-detail #detail-description,
+  body.page-detail .descriptionEvenement p {
+    margin-inline: 0;
+    font-size: 0.96rem;
+    line-height: 1.58;
+  }
+
+  body.page-detail .detail-inputs-evenement {
+    grid-template-columns: 1fr;
+    margin: 0 0 1.25rem;
+  }
+
+  body.page-detail .detail-info-group,
+  body.page-detail .detail-materiels-group > div {
+    padding: 0.7rem;
+    border-radius: 14px;
+  }
+
+  body.page-detail .detail-info-card {
+    min-height: auto;
+    padding: 0.55rem 0.62rem;
+  }
+
+  body.page-detail .detail-materiels-group {
+    grid-template-columns: 1fr;
+    margin: 0 0 1.25rem;
+  }
+
+  body.page-detail .detail-map-content {
+    gap: 0.75rem;
+  }
+
+  body.page-detail #detail-map-frame-container {
+    margin-top: 0.75rem;
+  }
+
+  body.page-detail .map iframe {
+    height: 260px !important;
+    border-radius: 16px;
+  }
+
+  body.page-detail .detail-map-qr-card {
+    width: 100%;
+    padding: 0.85rem;
+  }
+
+  body.page-detail .detail-map-qr-image {
+    width: min(170px, 64vw);
+  }
+
+  body.page-detail .aside {
+    width: min(84vw, 310px);
+    height: calc(100vh - 112px);
+  }
+
+  body.page-detail .toggle-aside.open {
+    left: min(84vw, 310px);
+  }
+
+  body.page-detail .sticky-button-container {
+    right: 0.75rem;
+    bottom: 1rem;
+    z-index: 1250;
+  }
+
+  body.page-detail .sticky-inscription-btn {
+    min-width: 0;
+    min-height: 40px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 521px) and (max-width: 700px) {
+  body.page-detail main {
+    width: min(96vw, 680px);
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  body.page-detail .imageEvent,
+  body.page-detail .descriptionEvenement {
+    width: 100%;
+    max-width: none;
+  }
+
+  body.page-detail .detail-summary {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  body.page-detail .carrousel img {
+    height: 290px;
+  }
+
+  body.page-detail .detail-inputs-evenement {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.page-detail .detail-materiels-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.page-detail .detail-map-content {
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 220px);
+    align-items: stretch;
+  }
+
+  body.page-detail .detail-map-qr-card {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  body.page-detail .map iframe {
+    height: 300px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  body.page-detail main {
+    padding: 0.55rem;
+  }
+
+  body.page-detail .detail-summary {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-detail .imageEvent,
+  body.page-detail .descriptionEvenement {
+    padding: 0.7rem;
+  }
+
+  body.page-detail .carrousel img {
+    height: 205px;
+  }
+}

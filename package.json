@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --check index.js && node --check backend/controllers/eventscontrollers.js && node --check backend/controllers/userscontrollers.js && node --check frontend/Projetjs/event.js && node --check frontend/Projetjs/utilitaire.js && node --check frontend/Projetjs/utilisateur.js"
   },
   "keywords": [],
   "author": "",

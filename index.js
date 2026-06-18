@@ -1,10 +1,14 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import routesEvenements from "./backend/routes/events.js";
 import routesUtilisateurs from "./backend/routes/users.js";
+import { verifierConnexionBaseDeDonnees } from "./backend/config/database.js";
 
 // Fichier principal du serveur.
 // Il lance Express, sert le frontend et branche les routes API.
+
+dotenv.config({ quiet: true });
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,7 +39,9 @@ app.get("/detail-evenement/:page.html", function redirigerAncienDetail(req, res,
     return next();
   }
 
-  return res.redirect("/detail-evenement/evenement.html?page=" + encodeURIComponent(page));
+  return res.redirect(
+    "/Projethtml/detail-evenement/evenement.html?page=" + encodeURIComponent(page)
+  );
 });
 
 app.use(function gererErreurJson(err, req, res, next) {
@@ -58,4 +64,5 @@ app.use("/api", routesUtilisateurs);
 
 app.listen(port, function demarrerServeur() {
   console.log("Serveur demarre sur le port " + port);
+  verifierConnexionBaseDeDonnees();
 });

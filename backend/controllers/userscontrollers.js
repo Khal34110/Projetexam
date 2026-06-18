@@ -1,5 +1,6 @@
 import db from "../config/database.js";
 import bcrypt from "bcrypt";
+import { idEstInvalide, recupererValeur } from "../../frontend/Projetjs/helpers.js";
 
 // Ce fichier gere les utilisateurs :
 // lecture, creation, modification et suppression.
@@ -15,10 +16,6 @@ const CHAMPS_OBLIGATOIRES = [
   "mot_de_passe",
 ];
 
-function idEstInvalide(id) {
-  return !Number.isInteger(id) || id <= 0;
-}
-
 function valeurVide(valeur) {
   if (valeur === null || valeur === undefined) {
     return true;
@@ -29,30 +26,6 @@ function valeurVide(valeur) {
   }
 
   return false;
-}
-
-function nettoyerValeur(valeur) {
-  if (typeof valeur === "string") {
-    return valeur.trim();
-  }
-
-  return valeur;
-}
-
-function recupererValeur(body, nomsPossibles) {
-  if (!body || typeof body !== "object") {
-    return undefined;
-  }
-
-  for (let index = 0; index < nomsPossibles.length; index += 1) {
-    const nom = nomsPossibles[index];
-
-    if (Object.prototype.hasOwnProperty.call(body, nom)) {
-      return nettoyerValeur(body[nom]);
-    }
-  }
-
-  return undefined;
 }
 
 function preparerDonneesUtilisateur(body) {
@@ -100,6 +73,104 @@ export async function getUserApiStatus(req, res) {
     return res.json({ status: "ok" });
   } catch (error) {
     console.error("Erreur getUserApiStatus :", error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+}
+
+export async function loginUser(req, res) {
+  const email = recupererValeur(req.body, ["email", "Email"]);
+  const motDePasse = recupererValeur(req.body, ["mot_de_passe", "Mot_de_passe"]);
+
+  if (valeurVide(email) || valeurVide(motDePasse)) {
+    return res.status(400).json({
+      message: "Email et mot de passe obligatoires",
+    });
+  }
+
+  try {
+    const requete =
+      "SELECT ID_utilisateur, Nom, Prenom, Email, Numero_de_telephone, ID_role, Mot_de_passe " +
+      "FROM utilisateurs WHERE Email = ? LIMIT 1";
+    const [utilisateurs] = await db.query(requete, [String(email).trim()]);
+
+    if (utilisateurs.length === 0) {
+      return res.status(401).json({ message: "Identifiants invalides" });
+    }
+
+    const utilisateur = utilisateurs[0];
+
+    if (
+      !utilisateur.Mot_de_passe ||
+      String(utilisateur.Mot_de_passe).length < 60
+    ) {
+      return res.status(400).json({
+        message:
+          "Ce compte utilise un ancien mot de passe incompatible. Merci de recreer le compte ou de reinitialiser le mot de passe.",
+      });
+    }
+
+    const motDePasseValide = await bcrypt.compare(
+      String(motDePasse),
+      utilisateur.Mot_de_passe
+    );
+
+    if (!motDePasseValide) {
+      return res.status(401).json({ message: "Identifiants invalides" });
+    }
+
+    return res.json({
+      message: "Connexion reussie",
+      utilisateur: {
+        id: utilisateur.ID_utilisateur,
+        nom: utilisateur.Nom,
+        prenom: utilisateur.Prenom,
+        email: utilisateur.Email,
+        numero_de_telephone: utilisateur.Numero_de_telephone,
+        id_role: utilisateur.ID_role,
+      },
+    });
+  } catch (error) {
+    console.error("Erreur loginUser :", error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+}
+
+export async function resetUserPassword(req, res) {
+  const email = recupererValeur(req.body, ["email", "Email"]);
+  const motDePasse = recupererValeur(req.body, ["mot_de_passe", "Mot_de_passe"]);
+
+  if (valeurVide(email) || valeurVide(motDePasse)) {
+    return res.status(400).json({
+      message: "Email et nouveau mot de passe obligatoires",
+    });
+  }
+
+  if (String(motDePasse).length < 6) {
+    return res.status(400).json({
+      message: "Le mot de passe doit contenir au moins 6 caracteres",
+    });
+  }
+
+  try {
+    const [utilisateurs] = await db.query(
+      "SELECT ID_utilisateur FROM utilisateurs WHERE Email = ? LIMIT 1",
+      [String(email).trim()]
+    );
+
+    if (utilisateurs.length === 0) {
+      return res.status(404).json({ message: "Compte introuvable" });
+    }
+
+    const motDePasseHash = await bcrypt.hash(String(motDePasse), 10);
+
+    await db.query(
+      "UPDATE utilisateurs SET Mot_de_passe = ? WHERE ID_utilisateur = ?",
+      [motDePasseHash, utilisateurs[0].ID_utilisateur]
+    );
+
+    return res.json({ message: "Mot de passe reinitialise" });
+  } catch (error) {
+    console.error("Erreur resetUserPassword :", error);
     return res.status(500).json({ message: "Erreur serveur" });
   }
 }

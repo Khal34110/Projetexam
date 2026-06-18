@@ -2,267 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-image: url("../image/Cirque-de-Moureze-occitanie\ fond.png");
-  background-size: cover;
-  /* l'image prend toute la largeur/hauteur */
-  background-repeat: no-repeat;
-  /* pas de répétition */
-  height: 100vh;
-  background-attachment: fixed;
-  background-position: center;
-  z-index: -1;
-  /* prend toute la hauteur de l'écran */
-}
-
-header {
-  display: grid;
-  grid-template-areas:
-    "logo titre user"
-    "menu menu search";
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
-  align-items: center;
-  padding: 20px;
-  background-color: #0B4A30;
-  gap: 10px;
-}
-
-/* === LOGO === */
-.logo {
-  grid-area: logo;
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* === UTILISATEUR === */
-.user {
-  grid-area: user;
-  display: grid;
-  height: 50px;
-  width: 50px;
-  justify-self: end;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* === TITRE === */
-header .site-title {
-  grid-area: titre;
-  align-self: center;
-  justify-self: center;
-  text-align: center;
-  color: white;
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-/* === MENU === */
-.menu {
-  grid-area: menu;
-}
-
-.menu ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 7.5rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.menu a {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s ease;
-}
-
-.menu a:hover {
-  color: #a7f3d0;
-  /* vert clair au survol */
-  text-decoration: underline;
-
-}
-
-/* === BARRE DE RECHERCHE === */
-.search-bar {
-  grid-area: search;
-  justify-self: end;
-}
-
-.search-bar input {
-  border: 1px solid #aaa;
-  border-radius: 30px;
-  width: 250px;
-  height: 1.8rem;
-  padding: 0 0.8rem;
-}
-
-/* === BOUTON BURGER === */
-.burger {
-  display: none;
-  grid-area: burger;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 45px;
-  height: 45px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1002;
-  /* au-dessus du menu */
-}
-
-.burger span {
-  display: block;
-  width: 28px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* Animation burger -> croix */
-.burger.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-
-.burger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.burger.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
-
-/* === MENU MOBILE === */
-@media (max-width: 700px) {
-  header {
-    grid-template-areas:
-      "logo titre burger"
-      "search search user";
-   grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: rgb(11, 74, 48);
-  }
-
-  header .site-title {
-    grid-area: titre;
-    font-size: 1.2rem;
-    line-height: 1.1;
-    padding: 0 5px;
-  }
-
-  /* Logo image */
-  .logo {
-    grid-area: logo;
-    height: 60px;
-    width: 60px;
-    display: block;
-  }
-
-  /* Si le logo est dans un <a>, on enlève l'effet lien */
-  a:has(.logo) {
-    text-decoration: none;
-  }
-
-  /* Menu off-canvas */
-  .menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 70%;
-    height: 100%;
-    background: rgba(11, 74, 48, 0.97);
-    backdrop-filter: blur(6px);
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-  }
-
-  .menu.active {
-    transform: translateX(0);
-  }
-
-  .menu ul {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .menu a {
-    font-size: 1rem;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  /* Afficher le burger sur mobile */
-  .burger {
-    display: flex;
-  }
-
-  body.menu-open {
-    overflow: hidden;
-  }
-
-  .user {
-    grid-area: user;
-    margin-top: 10px;
-    padding: 5px;
-    height: 40px;
-    width: 40px;
-    place-content: center;
-    margin-bottom: 10px;
-  }
-
-  .search-bar{
-    grid-area: search;
-    width: min(70%, 320px);  
-    max-width: 100%;
-    min-width: 0;
-    justify-self: center;
-    display: flex;
-    align-items: center;
-    margin-left: 3.5rem;
-  }
-
-  .search-bar input{
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-}
-
-/* corps de la page  */
-main {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 20px 40px;
-  background: rgba(255, 255, 255, 0.7);
-  /* Fond blanc semi-transparent */
-  border-radius: 15px;
-  width: 90%;
-
-  border: 4px solid #a7f3d0;
-
-
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
 }
 
 h1,
@@ -280,10 +20,8 @@ h4 {
   font-size: 1.5rem;
   color: #0B4A30;
   text-align: center;
-
 }
 
-/* STYLES DU FORMULAIRE */
 .formulaire input[type="text"],
 .formulaire input[type="email"],
 .formulaire input[type="tel"],
@@ -294,26 +32,18 @@ h4 {
   margin-bottom: 15px;
   font-size: 1rem;
   color: #0B4A30;
-
-
-  /* Style des champs de saisie */
-  background-color: var(--couleur-primaire-sombre);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   box-sizing: border-box;
   transition: border-color 0.3s;
-  border: solid 2px #b0aeae;
   box-shadow: 0 0 5px rgba(0, 121, 107, 0.5);
   border: 0.3px solid #a7f3d0;
-
-
 }
 
-/* Style des placeholders (texte d'indication) */
 .formulaire input::placeholder {
-  color: var(--couleur-texte-secondaire);
+  color: #52705F;
   opacity: 0.8;
 }
-
 
 .formulaire input:focus,
 .formulaire select:focus {
@@ -323,9 +53,6 @@ h4 {
   background-color: rgba(167, 243, 208, 0.3);
 }
 
-
-
-/* Styles pour les champs de fichier et certificat médical */
 .certificat {
   display: flex;
   gap: 15px;
@@ -333,14 +60,12 @@ h4 {
   margin-bottom: 25px;
 }
 
-/* Survol ou focus */
 .formulaire select:focus {
   background-color: rgba(167, 243, 208, 0.6);
   border-color: #1E7A50;
   outline: none;
 }
 
-/* CHOIX D'ÉVÉNEMENT ) */
 .event-form {
   display: flex;
   flex-wrap: wrap;
@@ -355,7 +80,6 @@ h4 {
   flex: 1 1 45%;
 }
 
-/* Style des labels (texte au-dessus des champs) */
 label {
   display: block;
   margin-bottom: 5px;
@@ -364,7 +88,6 @@ label {
   font-size: 1.1rem;
 }
 
-/* Liste de l'engagement */
 ul {
   gap: 20px;
   color: #0B4A30;
@@ -379,14 +102,12 @@ ul {
   margin-bottom: 1rem;
 }
 
-/* BOUTON D'INSCRIPTION */
 button[type="submit"] {
   display: block;
   margin: 0 auto;
   background-color: #0B4A30;
   border: 4px solid #a7f3d0;
   padding: 14px 25px;
-
   border-radius: 10px;
   cursor: pointer;
   font-size: 1.1em;
@@ -394,7 +115,6 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
   width: 30%;
   font-weight: bold;
-  text-transform: uppercase;
   color: white;
   margin-bottom: 2rem;
   text-align: center;
@@ -429,7 +149,6 @@ button[type="submit"]:hover {
   border-radius: 8px;
 }
 
-/* Ajustement responsive */
 @media (max-width: 700px) {
   main {
     padding: 20px;
@@ -450,12 +169,14 @@ button[type="submit"]:hover {
 
   button[type="submit"] {
     width: auto;
-    font-size: 12px
+    font-size: 12px;
   }
+
   h1,
-  h2{
+  h2 {
     font-size: 20px;
   }
+
   .formulaire input[type="text"],
   .formulaire input[type="email"],
   .formulaire input[type="tel"],
@@ -473,51 +194,327 @@ button[type="submit"]:hover {
   label {
     font-size: 0.9rem;
   }
-  h4{
+
+  h4 {
     font-size: 17px;
   }
-
 }
 
-/* --- STYLES DU PIED DE PAGE (FOOTER) --- */
-.footer {
-  background: #033d2d;
-  color: white;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Répartit l'espace entre les éléments */
-  align-items: center;
+h1,
+h2,
+h3,
+h4 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  color: #0B4A30;
+  line-height: 1.08;
+}
+
+h2 {
+  color: #0B4A30;
+  line-height: 1.15;
+}
+
+h3,
+h4 {
+  line-height: 1.2;
+}
+
+html {
+}
+
+.conf button,
+button[type="submit"],
+.event-form button[type="submit"],
+.bouton-ins button,
+.sticky-inscription-btn {
+  box-shadow: 0 12px 22px rgba(3, 61, 45, 0.2);
+}
+
+.conf button:hover,
+button[type="submit"]:hover,
+.event-form button[type="submit"]:hover,
+.bouton-ins button:hover,
+.sticky-inscription-btn:hover {
+  transform: translateY(-2px);
+}
+
+body.page-registration-form h1 {
+  margin: 0 0 1rem;
+  padding: 0;
+  color: #0B4A30;
+  font-size: 2.6rem;
+  line-height: 1.05;
   text-align: center;
-  padding: 25px;
-  gap: 10px;
-  /* Ajout d'un petit espacement entre les éléments */
-  font-size: 20px;
-  /* Légèrement réduit pour que les 4 éléments tiennent */
 }
 
-.footer p {
-  margin: 0;
-  /* Assure que les paragraphes ne provoquent pas de saut de ligne */
+body.page-registration-form input,
+body.page-registration-form select {
+  border: 1px solid rgba(11, 74, 48, 0.16);
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 3px rgba(3, 61, 45, 0.06);
 }
 
-.footer a {
-  color: white;
-  text-decoration: none;
-}
-.footer a:hover {
-  text-decoration: underline;
-  color: #a7f3d0; /* vert clair au survol */
+body.page-registration-form input:hover,
+body.page-registration-form select:hover {
+  border-color: #A7F3D0;
+  background-color: rgba(167, 243, 208, 0.18);
+  box-shadow: 0 0 6px rgba(0, 121, 107, 0.35);
 }
 
-/* --- RESPONSIVITÉ DU PIED DE PAGE --- */
+body.page-registration-form input:focus,
+body.page-registration-form select:focus {
+  outline: 3px solid rgba(167, 243, 208, 0.36);
+  border-color: #0B4A30;
+  background-color: rgba(167, 243, 208, 0.3);
+  box-shadow: 0 0 8px rgba(0, 121, 107, 0.6);
+}
+
+body.page-registration-form main {
+  background-color: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(167, 243, 208, 0.78);
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(8, 44, 29, 0.18);
+  width: min(94%, 980px);
+  padding: 1.8rem;
+  margin: 1.5rem auto;
+}
+
+body.page-registration-form h4 {
+  color: #2F6B53;
+  text-transform: none;
+}
+
+body.page-registration-form .reglement {
+  margin-top: 1.4rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(11, 74, 48, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.52);
+}
+
+main,
+.container,
+.contenu,
+.one-form,
+.connexion .form,
+.inscription,
+.evenement-form,
+.mentions-legales,
+.politiqueConfidentialite,
+.descriptionEvenement {
+  animation: rh-page-reveal 0.55s ease both;
+}
+
+@keyframes rh-page-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 700px) {
-  .footer {
-    display: grid;
-    /* Retour à la grille pour empiler */
-    grid-template-columns: 1fr;
-    /* 1 colonne */
-    gap: 0.8rem;
-    font-size: 0.9rem;
-    padding: 20px;
+  body.page-registration-form main {
+    width: min(94%, 100%);
+    padding: 1.1rem;
+  }
+}
+
+body {
+  background-image: url("../image/Cirque-de-Moureze-occitanie\ fond.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  z-index: -1;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  color: #143726;
+  background-image: url("../image/Cirque-de-Moureze-occitanie fond.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button,
+a,
+span {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+main {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  width: 90%;
+  border: 4px solid #a7f3d0;
+  flex: 1;
+  font-size: 1rem;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.titre-evenement h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+h1,
+body.page-registration-form h1,
+#detail-name {
+  font-size: 2.6rem;
+  line-height: 1.06;
+}
+
+h2,
+section h2 {
+  font-size: 2rem;
+  line-height: 1.14;
+}
+
+h3,
+.aside h3,
+main h3 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+h4,
+body.page-registration-form h4,
+.descriptionEvenement h4,
+.detailsEvenement h4,
+.materielsEvenement h4 {
+  font-size: 1.35rem;
+  line-height: 1.22;
+}
+
+h5,
+.detail-materiels-title,
+.detail-map-qr-title,
+.reglement h5,
+.titre-evenement h3 {
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.sur-titre,
+.section-etiquette,
+.message-liste-evenements,
+.details-evenement p,
+.detail-map-share-status {
+  font-size: 0.95rem;
+}
+
+.descriptionEvenement p,
+.reglement p,
+.assurance p,
+.merci p {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+input,
+select,
+textarea {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  min-height: 2.85rem;
+}
+
+textarea {
+  line-height: 1.6;
+}
+
+button[type="submit"],
+.conf button,
+.event-form button[type="submit"],
+.bouton-ins button,
+.sticky-inscription-btn {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.info-box h4,
+.info-box p,
+.detail-inputs-evenement label,
+.detail-inputs-evenement input,
+.detail-materiel-input,
+.materiel-liste label,
+.materiel-nom {
+  font-size: 1rem;
+}
+
+body.page-registration-form main,
+body.page-registration-form .reglement {
+  border-width: 2px;
+}
+
+input,
+select,
+textarea,
+body.page-registration-form input,
+body.page-registration-form select {
+  border-width: 1px;
+}
+
+input:hover,
+select:hover,
+textarea:hover,
+body.page-registration-form input:hover,
+body.page-registration-form select:hover,
+input:focus,
+select:focus,
+textarea:focus,
+body.page-registration-form input:focus,
+body.page-registration-form select:focus {
+  border-width: 2px;
+}
+
+@media (max-width: 700px) {
+  body {
+    background-attachment: scroll;
+    font-size: 1rem;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 2.65rem;
   }
 }

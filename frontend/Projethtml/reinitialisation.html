@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RÃ©initialisation du mot de passe</title>
+  <link rel="stylesheet" href="../stylescss/connexion.css">
+  <link rel="stylesheet" href="../stylescss/header-footer.css">
+</head>
+
+<body class="page-auth page-login">
+  <header id="header"></header>
+
+  <main>
+    <section class="connexion">
+      <div class="form">
+        <h1>RÃ©initialisation</h1>
+        <p>Entrez votre email et choisissez un nouveau mot de passe.</p>
+
+        <form class="formulaire" id="reset-password-form" novalidate>
+          <div class="identite">
+            <input type="email" name="email" id="reset-email" placeholder="Email" autocomplete="email" required>
+            <input type="password" name="mot_de_passe" id="reset-password" placeholder="Nouveau mot de passe" autocomplete="new-password" required>
+            <input type="password" name="confirmation_mot_de_passe" id="reset-password-confirmation" placeholder="Confirmation du mot de passe" autocomplete="new-password" required>
+          </div>
+          <div class="conf">
+            <button type="submit">RÃ©initialiser</button>
+          </div>
+          <p class="form-feedback" id="reset-feedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="compte">
+      <p>Retour Ã  la <a href="connexion.html">connexion</a></p>
+    </div>
+  </main>
+
+  <footer class="footer"></footer>
+
+  <script type="module" src="../Projetjs/utilisateur.js"></script>
+</body>
+
+</html>
+

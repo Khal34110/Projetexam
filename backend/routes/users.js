@@ -5,6 +5,8 @@ import {
   getUserApiStatus,
   getUserById,
   getUsers,
+  loginUser,
+  resetUserPassword,
   updateUser,
 } from "../controllers/userscontrollers.js";
 
@@ -23,6 +25,12 @@ router.get("/users/:id", getUserById);
 
 // Ajouter un utilisateur
 router.post("/users", createUser);
+
+// Connexion utilisateur
+router.post("/users/login", loginUser);
+
+// Reinitialisation du mot de passe
+router.post("/users/reset-password", resetUserPassword);
 
 // Modifier un utilisateur
 router.put("/users/:id", updateUser);

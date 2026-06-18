@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon profil</title>
+  <link rel="stylesheet" href="../stylescss/profil.css">
+  <link rel="stylesheet" href="../stylescss/header-footer.css">
+</head>
+
+<body class="page-profile">
+  <header id="header"></header>
+
+  <main class="profile-main">
+    <section class="profile-card">
+      <p class="profile-kicker">Espace personnel</p>
+      <h1>Mon profil</h1>
+      <p class="profile-intro">Retrouvez ici les informations du compte actuellement connecte.</p>
+
+      <div class="profile-feedback" id="profile-feedback" aria-live="polite"></div>
+
+      <dl class="profile-grid" id="profile-grid">
+        <div class="profile-item">
+          <dt>Prenom</dt>
+          <dd id="profile-prenom">-</dd>
+        </div>
+        <div class="profile-item">
+          <dt>Nom</dt>
+          <dd id="profile-nom">-</dd>
+        </div>
+        <div class="profile-item">
+          <dt>Email</dt>
+          <dd id="profile-email">-</dd>
+        </div>
+        <div class="profile-item">
+          <dt>Telephone</dt>
+          <dd id="profile-telephone">-</dd>
+        </div>
+      </dl>
+
+      <section class="profile-edit">
+        <div class="profile-edit-toggle">
+          <button type="button" class="profile-link" id="profile-edit-toggle" aria-expanded="false">
+            Modifier mes informations
+          </button>
+        </div>
+        <form class="profile-form" id="profile-form" novalidate hidden>
+          <label class="profile-field">
+            <span>Prenom</span>
+            <input type="text" name="prenom" id="edit-prenom" required>
+          </label>
+          <label class="profile-field">
+            <span>Nom</span>
+            <input type="text" name="nom" id="edit-nom" required>
+          </label>
+          <label class="profile-field">
+            <span>Email</span>
+            <input type="email" name="email" id="edit-email" required>
+          </label>
+          <label class="profile-field">
+            <span>Telephone</span>
+            <input type="tel" name="numero_de_telephone" id="edit-telephone" required>
+          </label>
+          <div class="profile-form-actions">
+            <button type="submit" class="profile-link">Enregistrer les modifications</button>
+          </div>
+        </form>
+      </section>
+
+      <div class="profile-actions">
+        <a class="profile-link" href="../Projethtml/accueil.html">Retour a l'accueil</a>
+      </div>
+      <button type="button" class="profile-delete-link" id="profile-delete-account">
+        Supprimer le compte
+      </button>
+    </section>
+  </main>
+
+  <footer class="footer"></footer>
+
+  <script type="module" src="../Projetjs/utilisateur.js"></script>
+</body>
+
+</html>
+

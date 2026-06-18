@@ -1,60 +1,29 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'événements</title>
     <link rel="stylesheet" href="../stylescss/formevenements.css">
+  <link rel="stylesheet" href="../stylescss/header-footer.css">
 </head>
 
-<body>
+<body class="page-event-form">
 
     <header id="header">
-        <!-- Logo -->
-        <!-- <img src="../image/image logo.png" class="logo" alt="Logo Randonnée Hérault"> -->
 
-        <!-- <p class="site-title">Randonnée de l'Hérault</p> -->
-        <!-- Logo user -->
-        <!-- <a href="../Projethtml/connexion.html">
-            <img class="user" src="../image/telechargement4.png" alt="Utilisateur">
-        </a> -->
 
-        <!-- BOUTON BURGER -->
-        <!-- <button class="burger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button> -->
 
-        <!-- Menu header -->
-        <!-- <nav class="menu">
-            <ul>
-                <li><a href="accueil.html">ACCUEIL</a></li>
-                <li><a href="apropos.html">À PROPOS</a></li>
-                <li><a href="event.html">ÉVÉNEMENTS</a></li>
-                <li><a href="inscription.html">INSCRIPTION</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
-            </ul>
-        </nav> -->
 
-        <!-- Barre de recherche  -->
-        <!-- <div class="search-bar">
-            <input type="text" placeholder="Rechercher..." name="">
-        </div> -->
     </header>
 
-    <!-- Titre de la page -->
-    <h1 class="titre">Nouvel Evenement</h1>
-    <!-- Corps de la page -->
+    <h1 class="titre">Nouvel événement</h1>
     <main>
 <div class="evenement-form">
         <form id="event-form" class="event-form" action="#" method="post">
 
-            <!-- Informations sur l'événement -->
             <h2>Informations générales</h2>
-    
-            <!-- Input et labels description de l'événement -->
 
             <label>Nom de la randonnée :</label>
             <input type="text" placeholder="Nom de la randonnée" name="Nom" required>
@@ -66,7 +35,6 @@
             <input type="date" placeholder="Date de l'événement" name="Date_event" required>
 
             <label> <img src="../image/icone fauteuil.png" alt="image">Accessibilité :</label>
-            <!-- Choix dans le select -->
             <select name="Accessibilite" id="">
                 <option value="">-- Choisir --</option>
                 <option value="1">Oui</option>
@@ -139,8 +107,7 @@
                 <label><input type="radio" name="toilettes" value="oui"> Oui</label>
                 <label><input type="radio" name="toilettes" value="non"> Non</label>
             </div>
-            
-            <h2>Informations detaillees</h2>
+            <h2>Informations détaillées</h2>
 
             <label>Description :</label>
             <textarea name="Descriptif" rows="5" placeholder="Description detaillee de l'evenement"></textarea>
@@ -154,7 +121,6 @@
             <label>Altitude maximale (m) :</label>
             <input type="number" name="Altitude_maximale" min="0">
 
-           <!-- Liste du matériel recommandé -->
             <h2>Matériel recommandé</h2>
             <div class="materiel-recommande">
                 <p>
@@ -255,32 +221,26 @@
                     </div>
                 </div>
             </div>
-            <!-- Conditions et consentement -->
             <h2>Conditions et consentement</h2>
             <div class="conditionphy">
                 <label><input type="checkbox" name="consentement" required>
                     Je reconnais être en bonne condition physique et accepte les consignes de sécurité.
                 </label>
             </div>
-            <!-- Bouton envoyer -->
             <p id="event-form-message" class="event-form-message" role="status"></p>
             <button type="submit">Envoyer le formulaire</button>
         </form>
 </div>
     </main>
-        <!-- Footer -->
     <footer class="footer">
-        <!-- <a href="../Projethtml/contact.html">Nous contacter</a>
-        <p>Copyright © 2025
-            Powered by Khaled</p>
-        <a href="../Projethtml/mentionsLegales.html">Mentions légales</a>
-        <a href="../Projethtml/politiqueconf.html">Politique de confidentialité</a> -->
     </footer>
-    
     <script type="module" src="../Projetjs/event.js"></script>
 </body>
 
 </html>
+
+
+
 
 
 

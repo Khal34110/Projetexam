@@ -1,461 +1,554 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-image: url("../image/Cirque-de-Moureze-occitanie\ fond.png");
-    background-size: cover;
-    /* l'image prend toute la largeur/hauteur */
-    background-repeat: no-repeat;
-    /* pas de répétition */
-    height: 100vh;
-    background-attachment: fixed;
-    background-position: center;
-    z-index: -1;
-    /* prend toute la hauteur de l'écran */
-}
-
-header {
-    display: grid;
-    grid-template-areas:
-        "logo titre user"
-        "menu menu search";
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: center;
-    padding: 20px;
-    background-color: #0B4A30;
-    gap: 10px;
-}
-
-/* === LOGO === */
-.logo {
-    grid-area: logo;
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-/* === UTILISATEUR === */
-.user {
-    grid-area: user;
-    display: grid;
-    height: 50px;
-    width: 50px;
-    justify-self: end;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-/* === TITRE === */
-header .site-title {
-    grid-area: titre;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
-    color: white;
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-/* === MENU === */
-.menu {
-    grid-area: menu;
-}
-
-.menu ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7.5rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-.menu a {
-    text-decoration: none;
-    color: white;
-    transition: color 0.3s ease;
-}
-
-.menu a:hover {
-    color: #a7f3d0;
-    /* vert clair au survol */
-    text-decoration: underline;
-}
-
-/* === BARRE DE RECHERCHE === */
-.search-bar {
-    grid-area: search;
-    justify-self: end;
-}
-
-.search-bar input {
-    border: 1px solid #aaa;
-    border-radius: 30px;
-    width: 250px;
-    height: 1.8rem;
-    padding: 0 0.8rem;
-}
-
-/* === BOUTON BURGER === */
-.burger {
-    display: none;
-    grid-area: burger;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 45px;
-    height: 45px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1002;
-    /* au-dessus du menu */
-}
-
-.burger span {
-    display: block;
-    width: 28px;
-    height: 3px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-/* Animation burger -> croix */
-.burger.active span:nth-child(1) {
-    transform: rotate(45deg) translateY(8px);
-}
-
-.burger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.burger.active span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-8px);
-}
-
-/* === MENU MOBILE === */
-@media (max-width: 700px) {
-  header {
-    grid-template-areas:
-      "logo titre burger"
-      "search search user";
-   grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: rgb(11, 74, 48);
-  }
-
-  header .site-title {
-    grid-area: titre;
-    font-size: 1.2rem;
-    line-height: 1.1;
-    padding: 0 5px;
-  }
-
-  /* Logo image */
-  .logo {
-    grid-area: logo;
-    height: 60px;
-    width: 60px;
-    display: block;
-  }
-
-  /* Si le logo est dans un <a>, on enlève l'effet lien */
-  a:has(.logo) {
-    text-decoration: none;
-  }
-
-  /* Menu off-canvas */
-  .menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 70%;
-    height: 100%;
-    background: rgba(11, 74, 48, 0.97);
-    backdrop-filter: blur(6px);
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-  }
-
-  .menu.active {
-    transform: translateX(0);
-  }
-
-  .menu ul {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .menu a {
-    font-size: 1rem;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  /* Afficher le burger sur mobile */
-  .burger {
-    display: flex;
-  }
-
-  body.menu-open {
-    overflow: hidden;
-  }
-
-  .user {
-    grid-area: user;
-    margin-top: 10px;
-    padding: 5px;
-    height: 40px;
-    width: 40px;
-    place-content: center;
-    margin-bottom: 10px;
-  }
-
-  .search-bar{
-    grid-area: search;
-    width: min(70%, 320px);  
-    max-width: 100%;
-    min-width: 0;
-    justify-self: center;
-    display: flex;
-    align-items: center;
-    margin-left: 3.5rem;
-  }
-
-  .search-bar input{
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
 }
 
 .container {
-    width: min(92%, 1350px);
-    max-width: 1350px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 10px;
-    border: 4px solid #a7f3d0;
-
+  width: min(92%, 1350px);
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  border: 4px solid #a7f3d0;
 }
 
-/* --- Mise en page GRID (4 colonnes) --- */
 .imagesEvenements {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1300px;
-    margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1300px;
+  margin: 20px auto;
+}
+
+.message-liste-evenements {
+  grid-column: 1 / -1;
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  border-radius: 18px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  box-shadow: 0 14px 34px rgba(8, 44, 29, 0.12);
+}
+
+.message-liste-evenements.info {
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid #a7f3d0;
+  color: #0B4A30;
+}
+
+.message-liste-evenements.erreur {
+  background: rgba(255, 247, 247, 0.95);
+  border: 2px solid #e6a3a3;
+  color: #8a1f1f;
 }
 
 h1,
 h2 {
-    grid-area: tit;
-    text-align: center;
-    color: #0B4A30;
-    font-size: 2.5rem;
-    margin-top: 1rem;
+  grid-area: tit;
+  text-align: center;
+  color: #0B4A30;
+  font-size: 2.5rem;
+  margin-top: 1rem;
 }
 
 .evenement {
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
 
-/* Effet au survol */
 .evenement:hover {
-    transform: translateY(-5px);
-
+  transform: translateY(-5px);
 }
 
-/* --- image  --- */
 .evenement img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    display: block;
-    border: 4px solid #a7f3d0;
-    border-radius: 20px;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  border: 4px solid #a7f3d0;
+  border-radius: 20px;
 }
-
 
 .titre-evenement {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-    padding: 20px 10px 10px;
-    box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  padding: 20px 10px 10px;
+  box-sizing: border-box;
 }
 
-/* --- Le Texte du Titre --- */
 .titre-evenement h3 {
-    color: white;
-    font-size: 1.1em;
-    margin: 0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 1.1em;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .evenement a {
-    text-decoration: none;
-    display: block;
-    height: 100%;
+  text-decoration: none;
+  display: block;
+  height: 100%;
 }
 
 .textaccueil {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    font-weight: bold;
-    padding: 2rem;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    color: #0B4A30;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  padding: 2rem;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #0B4A30;
 }
-
-.details-evenement {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(11, 74, 48, 0.9);
-    color: white;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 0 0 20px 20px;
-    opacity: 0;
-}
-
 
 .details-evenement p {
-    font-size: 0.8rem;
-    font-weight: bold;
-    line-height: 1.5;
-
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 1.5;
 }
 
-/* --- AFFICHAGE AU SURVOL --- */
 .evenement:hover .details-evenement {
-    /* Rend le bloc visible au survol */
-    opacity: 1;
+  opacity: 1;
 }
 
-/* --- AJUSTEMENT : Garder le titre visible même au survol --- */
 .evenement:hover .titre-evenement {
-    /* S'assurer que le titre reste au-dessus du nouvel overlay */
-    z-index: 10;
+  z-index: 10;
 }
 
-/* Empêche le titre initial de l'événement de disparaitre au survol */
 .evenement:hover .titre-evenement h3 {
-    text-decoration: underline;
+  text-decoration: underline;
 }
+
 .details-evenement {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(20px);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(11, 74, 48, 0.9);
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 0 0 20px 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(20px);
 }
+
 .evenement:hover .details-evenement,
 .evenement.active .details-evenement {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
-
-
 @media (max-width: 700px) {
-    main{
-        width: 90%;
-        margin: auto;
-    }
-    .imagesEvenements {
-        grid-template-columns: 1fr;
-    }
+  main {
+    width: 90%;
+    margin: auto;
+  }
 
-    .container {
-        padding: 10px;
-        margin: 10px;
-    }
+  .imagesEvenements {
+    grid-template-columns: 1fr;
+  }
 
-    h1,
-    h2 {
-        font-size: 1.8rem;
-    }
+  .container {
+    padding: 10px;
+    margin: 10px;
+  }
 
-    .evenement img {
-        height: 200px;
-    }
+  h1,
+  h2 {
+    font-size: 1.8rem;
+  }
 
-    .textaccueil {
-        font-size: 1rem;
-        padding: 1rem;
-    }
-    /* Sur mobile : affichage si .active est ajoutée via JS */
-.evenement.active .details-evenement {
+  .evenement img {
+    height: 200px;
+  }
+
+  .textaccueil {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .evenement.active .details-evenement {
     opacity: 1;
-}
-}
-/* --- Footer --- */
-.footer {
-    background: #033d2d;
-    color: white;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    text-align: center;
-    padding: 25px;
-    gap: 10px;
-
-    font-size: 20px;
-
+  }
 }
 
-.footer p {
-    margin: 0;
-
+body.event-refresh {
 }
 
-.footer a {
-    color: white;
-    text-decoration: none;
-}
-.footer a:hover {
-  text-decoration: underline;
-  color: #a7f3d0; /* vert clair au survol */
+body.event-refresh .hero-evenements {
+  text-align: center;
+  padding: 0.5rem 1rem 0.25rem;
 }
 
-/* --- RESPONSIVITÉ DU PIED DE PAGE --- */
+body.event-refresh .sur-titre {
+  margin: 0 0 0.85rem;
+  color: #0B4A30;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.22rem;
+}
+
+body.event-refresh .imagesEvenements {
+  gap: 24px;
+  margin-top: 2rem;
+}
+
+body.event-refresh .evenement {
+  background: rgba(252, 250, 244, 0.68);
+  border: 1px solid rgba(11, 74, 48, 0.08);
+  box-shadow: 0 14px 30px rgba(8, 44, 29, 0.14);
+}
+
+body.event-refresh .evenement:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 34px rgba(8, 44, 29, 0.18);
+}
+
+body.event-refresh .evenement img {
+  border-radius: 20px;
+  border: 4px solid #A7F3D0;
+}
+
+body.event-refresh .titre-evenement {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: auto;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0));
+  padding: 20px 10px 10px;
+}
+
+body.event-refresh .titre-evenement h3 {
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+body.event-refresh .details-evenement {
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  width: auto;
+  background: rgba(248, 245, 238, 0.72);
+  color: #143726;
+  padding: 0.85rem 0.95rem 0.9rem;
+  border-radius: 16px;
+  border: 1px solid rgba(11, 74, 48, 0.12);
+  box-shadow: 0 14px 28px rgba(8, 44, 29, 0.18);
+}
+
+body.event-refresh .details-evenement p {
+  font-weight: 600;
+  text-shadow: none;
+}
+
+@media (max-width: 1100px) {
+  body.event-refresh .imagesEvenements {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 850px) {
+  body.event-refresh .imagesEvenements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 700px) {
-    .footer {
-        display: grid;
-        /* Retour à la grille pour empiler */
-        grid-template-columns: 1fr;
-        /* 1 colonne */
-        gap: 0.8rem;
-        font-size: 0.9rem;
-        padding: 20px;
-    }
+  body.event-refresh .container {
+    padding: 1rem 0.9rem;
+    margin: 0.75rem auto;
+  }
+
+  body.event-refresh .hero-evenements {
+    padding: 0.35rem 0.2rem 0;
+  }
+
+  body.event-refresh .sur-titre {
+    font-size: 0.74rem;
+    letter-spacing: 0.12rem;
+  }
+
+  body.event-refresh h1 {
+    font-size: 2.2rem;
+  }
+
+  body.event-refresh .textaccueil {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  body.event-refresh .titre-evenement {
+    min-height: auto;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  color: #0B4A30;
+  line-height: 1.08;
+}
+
+h2 {
+  color: #0B4A30;
+  line-height: 1.15;
+}
+
+h3,
+h4 {
+  line-height: 1.2;
+}
+
+html {
+}
+
+.conf button,
+button[type="submit"],
+.event-form button[type="submit"],
+.bouton-ins button,
+.sticky-inscription-btn {
+  box-shadow: 0 12px 22px rgba(3, 61, 45, 0.2);
+}
+
+.conf button:hover,
+button[type="submit"]:hover,
+.event-form button[type="submit"]:hover,
+.bouton-ins button:hover,
+.sticky-inscription-btn:hover {
+  transform: translateY(-2px);
+}
+
+main,
+.container,
+.contenu,
+.one-form,
+.connexion .form,
+.inscription,
+.evenement-form,
+.mentions-legales,
+.politiqueConfidentialite,
+.descriptionEvenement {
+  animation: rh-page-reveal 0.55s ease both;
+}
+
+@keyframes rh-page-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background-image: url("../image/Cirque-de-Moureze-occitanie\ fond.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  z-index: -1;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  color: #143726;
+  background-image: url("../image/Cirque-de-Moureze-occitanie fond.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button,
+a,
+span {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+main {
+  flex: 1;
+  font-size: 1rem;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.titre-evenement h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+h1,
+#detail-name {
+  font-size: 2.6rem;
+  line-height: 1.06;
+}
+
+body.event-refresh h1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3rem;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+h2,
+section h2 {
+  font-size: 2rem;
+  line-height: 1.14;
+}
+
+h3,
+.aside h3,
+main h3 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+h4,
+.descriptionEvenement h4,
+.detailsEvenement h4,
+.materielsEvenement h4 {
+  font-size: 1.35rem;
+  line-height: 1.22;
+}
+
+h5,
+.detail-materiels-title,
+.detail-map-qr-title,
+.reglement h5,
+.titre-evenement h3 {
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.sur-titre,
+.section-etiquette,
+.message-liste-evenements,
+.details-evenement p,
+.detail-map-share-status {
+  font-size: 0.95rem;
+}
+
+body.event-refresh .textaccueil {
+  width: min(760px, 100%);
+  margin: 1.2rem auto 0;
+  padding: 0;
+  color: #143726;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.descriptionEvenement p,
+.reglement p,
+.assurance p,
+.merci p {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+textarea {
+  line-height: 1.6;
+}
+
+button[type="submit"],
+.conf button,
+.event-form button[type="submit"],
+.bouton-ins button,
+.sticky-inscription-btn {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.info-box h4,
+.info-box p,
+.detail-inputs-evenement label,
+.detail-inputs-evenement input,
+.detail-materiel-input,
+.materiel-liste label,
+.materiel-nom {
+  font-size: 1rem;
+}
+
+body.event-refresh .container {
+  padding: 2rem;
+  margin: 1.75rem auto;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(246, 251, 247, 0.42));
+  box-shadow: 0 18px 44px rgba(8, 44, 29, 0.16);
+  border-width: 2px;
+}
+
+input,
+select,
+textarea {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  min-height: 2.85rem;
+  border-width: 1px;
+}
+
+input:hover,
+select:hover,
+textarea:hover,
+input:focus,
+select:focus,
+textarea:focus {
+  border-width: 2px;
+}
+
+@media (max-width: 700px) {
+  body {
+    background-attachment: scroll;
+    font-size: 1rem;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 2.65rem;
+  }
 }

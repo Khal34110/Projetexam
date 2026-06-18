@@ -30,8 +30,9 @@ function determinerApiRoot() {
 
 export const API_ROOT = determinerApiRoot();
 export const API_URL = API_ROOT + "/api/events";
-export const DEFAULT_IMAGE =
-  "../image/occitanie-rando-randonnee-herault-puechabon-balcons-herault-30-1024x768.webp";
+export const DEFAULT_IMAGE = cheminImage(
+  "occitanie-rando-randonnee-herault-puechabon-balcons-herault-30-1024x768.webp"
+);
 
 const WIKIMEDIA_FILE_PATH_URL =
   "https://commons.wikimedia.org/wiki/Special:FilePath/";
@@ -375,10 +376,79 @@ function construireUrlDepuisChemin(chemin) {
   }
 
   if (valeur.startsWith("../") || valeur.startsWith("./")) {
-    return valeur;
+    return adapterCheminImageLocal(valeur);
   }
 
   return API_ROOT + "/" + valeur.replace(/^\/+/, "");
+}
+
+function recupererUtilisateurConnecte() {
+  if (typeof window === "undefined" || !window.localStorage) {
+    return null;
+  }
+
+  try {
+    const contenu = window.localStorage.getItem("rdh_user");
+
+    if (!contenu) {
+      return null;
+    }
+
+    const utilisateur = JSON.parse(contenu);
+
+    if (!utilisateur || typeof utilisateur !== "object") {
+      return null;
+    }
+
+    return utilisateur;
+  } catch (error) {
+    console.error("Erreur lecture utilisateur connecte :", error);
+    return null;
+  }
+}
+
+function supprimerUtilisateurConnecte() {
+  if (typeof window === "undefined" || !window.localStorage) {
+    return;
+  }
+
+  window.localStorage.removeItem("rdh_user");
+}
+
+function estPageDetailEvenement() {
+  if (typeof window === "undefined" || !window.location) {
+    return false;
+  }
+
+  return window.location.pathname
+    .toLowerCase()
+    .includes("/projethtml/detail-evenement/");
+}
+
+function cheminProjetHtml(fichier) {
+  return estPageDetailEvenement() ? "../" + fichier : "../Projethtml/" + fichier;
+}
+
+function cheminImage(fichier) {
+  return (estPageDetailEvenement() ? "../../image/" : "../image/") + fichier;
+}
+
+function adapterCheminImageLocal(chemin) {
+  if (estPageDetailEvenement() && chemin.startsWith("../image/")) {
+    return "../" + chemin;
+  }
+
+  return chemin;
+}
+
+function formaterPrenomUtilisateur(valeur) {
+  const prenom = String(valeur || "").trim();
+
+  if (prenom === "") {
+    return "";
+  }
+
+  return prenom.charAt(0).toUpperCase() + prenom.slice(1).toLowerCase();
 }
 
 export function choisirGalerieLocaleEvenement(
@@ -391,12 +461,14 @@ export function choisirGalerieLocaleEvenement(
     return [];
   }
 
-  return regle.galerie.slice();
+    return regle.galerie.map(adapterCheminImageLocal);
 }
 
 export function construireSourcesImage(evenementPrincipal, evenementSecondaire) {
   const regle = trouverRegleImage(evenementPrincipal, evenementSecondaire);
-  const fallbackImageSrc = regle && regle.image ? regle.image : DEFAULT_IMAGE;
+  const fallbackImageSrc = adapterCheminImageLocal(
+    regle && regle.image ? regle.image : DEFAULT_IMAGE
+  );
   let cheminImage = "";
 
   if (evenementPrincipal) {
@@ -409,7 +481,9 @@ export function construireSourcesImage(evenementPrincipal, evenementSecondaire) 
       evenementSecondaire.image_url || evenementSecondaire.imageUrl || "";
   }
 
-  const imageSrc = construireUrlDepuisChemin(cheminImage) || fallbackImageSrc;
+  const imageSrc =
+    adapterCheminImageLocal(construireUrlDepuisChemin(cheminImage)) ||
+    fallbackImageSrc;
 
   return {
     imageSrc: imageSrc,
@@ -445,10 +519,37 @@ function loadHeader() {
     return;
   }
 
+  const utilisateurConnecte = recupererUtilisateurConnecte();
+  const prenomUtilisateur = utilisateurConnecte
+    ? formaterPrenomUtilisateur(
+        String(utilisateurConnecte.prenom || utilisateurConnecte.Prenom || "")
+          .trim()
+          .split(/\s+/)[0]
+      )
+    : "";
+  const messageUtilisateur =
+    prenomUtilisateur !== "" ? "Bonjour, " + prenomUtilisateur : "Connexion";
+  const menuUtilisateur = utilisateurConnecte
+    ? `
+      <div class="user-menu">
+        <button type="button" class="user-menu-action" data-user-action="logout">Déconnexion</button>
+      </div>
+    `
+    : "";
+  const lienAjoutRandonnee = utilisateurConnecte
+    ? '<li><a href="' +
+      cheminProjetHtml("formevenements.html") +
+      '">Ajouter une randonn&eacute;e</a></li>'
+    : "";
+  const hrefUtilisateur =
+    prenomUtilisateur !== ""
+      ? cheminProjetHtml("profil.html")
+      : cheminProjetHtml("connexion.html");
+
   header.innerHTML = `
-    <a href="../Projethtml/accueil.html">
+    <a href="${cheminProjetHtml("accueil.html")}" class="logo-link">
       <img
-        src="../image/image logo.png"
+        src="${cheminImage("image logo.png")}"
         class="logo"
         alt="Logo Randonnee Herault"
       >
@@ -456,9 +557,13 @@ function loadHeader() {
 
     <p class="site-title">Randonn&eacute;e de l'H&eacute;rault</p>
 
-    <a href="../Projethtml/connexion.html">
-      <img class="user" src="../image/telechargement4.png" alt="Utilisateur">
-    </a>
+    <div class="user-panel">
+      <a href="${hrefUtilisateur}" class="user-link" aria-haspopup="${prenomUtilisateur !== "" ? "menu" : "false"}" aria-expanded="false">
+        <span class="user-greeting">${messageUtilisateur}</span>
+        <img class="user" src="${cheminImage("telechargement4.png")}" alt="Utilisateur">
+      </a>
+      ${menuUtilisateur}
+    </div>
 
     <button class="burger" aria-label="Menu">
       <span></span>
@@ -468,11 +573,12 @@ function loadHeader() {
 
     <nav class="menu">
       <ul>
-        <li><a href="../Projethtml/accueil.html">ACCUEIL</a></li>
-        <li><a href="../Projethtml/Apropos.html">&Agrave; PROPOS</a></li>
-        <li><a href="../Projethtml/event.html">&Eacute;V&Eacute;NEMENTS</a></li>
-        <li><a href="../Projethtml/inscription.html">INSCRIPTION</a></li>
-        <li><a href="../Projethtml/contact.html">CONTACT</a></li>
+        <li><a href="${cheminProjetHtml("accueil.html")}">Accueil</a></li>
+        <li><a href="${cheminProjetHtml("Apropos.html")}">&Agrave; propos</a></li>
+        <li><a href="${cheminProjetHtml("event.html")}">&Eacute;v&eacute;nements</a></li>
+        ${lienAjoutRandonnee}
+        <li><a href="${cheminProjetHtml("inscription.html")}">Inscription</a></li>
+        <li><a href="${cheminProjetHtml("contact.html")}">Contact</a></li>
       </ul>
     </nav>
 
@@ -489,11 +595,28 @@ function loadFooter() {
   }
 
   footer.innerHTML = `
-    <a href="../Projethtml/contact.html">Nous contacter</a>
+    <a href="${cheminProjetHtml("contact.html")}">Nous contacter</a>
     <p>Copyright &copy; 2026<br>Powered by Khaled</p>
-    <a href="../Projethtml/mentionsLegales.html">Mentions legales</a>
-    <a href="../Projethtml/politiqueconf.html">Politique de confidentialite</a>
+    <a href="${cheminProjetHtml("mentionsLegales.html")}">Mentions l&eacute;gales</a>
+    <a href="${cheminProjetHtml("politiqueconf.html")}">Politique de confidentialit&eacute;</a>
   `;
+}
+
+function initialiserLienMenuActif() {
+  const liensMenu = document.querySelectorAll(".menu a");
+  const cheminActuel = window.location.pathname.toLowerCase();
+
+  for (let index = 0; index < liensMenu.length; index += 1) {
+    const lien = liensMenu[index];
+    const cheminLien = new URL(lien.href, window.location.href).pathname.toLowerCase();
+    const lienEvenements = cheminLien.endsWith("/projethtml/event.html");
+    const pageDetailEvenement = cheminActuel.includes("/projethtml/detail-evenement/");
+
+    lien.classList.toggle(
+      "active",
+      cheminActuel === cheminLien || (pageDetailEvenement && lienEvenements)
+    );
+  }
 }
 
 function initialiserCarrousel() {
@@ -542,37 +665,25 @@ function initialiserCarrousel() {
     }
   }
 
+  function changerImage(sens) {
+    const images = recupererImages();
+    if (images.length === 0) {
+      return;
+    }
+
+    index += sens;
+    afficherImage();
+  }
+
   if (boutonSuivant) {
     boutonSuivant.addEventListener("click", function imageSuivante() {
-      const images = recupererImages();
-      if (images.length === 0) {
-        return;
-      }
-
-      index += 1;
-
-      if (index >= images.length) {
-        index = 0;
-      }
-
-      afficherImage();
+      changerImage(1);
     });
   }
 
   if (boutonPrecedent) {
     boutonPrecedent.addEventListener("click", function imagePrecedente() {
-      const images = recupererImages();
-      if (images.length === 0) {
-        return;
-      }
-
-      index -= 1;
-
-      if (index < 0) {
-        index = images.length - 1;
-      }
-
-      afficherImage();
+      changerImage(-1);
     });
   }
 
@@ -623,7 +734,7 @@ function initialiserRechercheHeader() {
     event.preventDefault();
 
     const recherche = normaliserRecherche(champRecherche.value);
-    const destination = new URL("../Projethtml/event.html", window.location.href);
+    const destination = new URL(cheminProjetHtml("event.html"), window.location.href);
 
     if (recherche !== "") {
       destination.searchParams.set("q", recherche);
@@ -672,6 +783,41 @@ function initialiserAsideToggle() {
       fermerAside();
     }
   });
+
+  aside.addEventListener("click", function fermerAuClicLien(event) {
+    const lien = event.target.closest("a");
+
+    if (lien) {
+      fermerAside();
+    }
+  });
+}
+
+function initialiserMenuUtilisateur() {
+  const utilisateur = recupererUtilisateurConnecte();
+  const panel = document.querySelector(".user-panel");
+  const lien = document.querySelector(".user-link");
+  const menu = document.querySelector(".user-menu");
+
+  if (!panel || !lien || !utilisateur || !menu) {
+    return;
+  }
+
+  menu.addEventListener("click", async function gererActionUtilisateur(event) {
+    const bouton = event.target.closest("[data-user-action]");
+
+    if (!bouton) {
+      return;
+    }
+
+    const action = bouton.getAttribute("data-user-action");
+
+    if (action === "logout") {
+      supprimerUtilisateurConnecte();
+      window.location.href = cheminProjetHtml("connexion.html");
+      return;
+    }
+  });
 }
 
 async function chargerAsideLiens() {
@@ -679,6 +825,8 @@ async function chargerAsideLiens() {
   if (!liste) {
     return;
   }
+
+  liste.innerHTML = '<li class="aside-message">Chargement des evenements...</li>';
 
   try {
     const response = await fetch(API_URL);
@@ -689,6 +837,11 @@ async function chargerAsideLiens() {
     const events = await response.json();
     liste.innerHTML = "";
 
+    if (!Array.isArray(events) || events.length === 0) {
+      liste.innerHTML = '<li class="aside-message">Aucun evenement disponible.</li>';
+      return;
+    }
+
     const fichierActuel = window.location.pathname.split("/").pop().toLowerCase();
     const idActuel = Number(new URLSearchParams(window.location.search).get("id"));
 
@@ -698,11 +851,14 @@ async function chargerAsideLiens() {
       const li = document.createElement("li");
       const lien = document.createElement("a");
 
-      lien.href = "../detail-evenement/evenement.html?id=" + idEvenement;
+      lien.href = estPageDetailEvenement()
+        ? "evenement.html?id=" + idEvenement
+        : "detail-evenement/evenement.html?id=" + idEvenement;
       lien.textContent = evenement.Nom || "Evenement";
 
       if (fichierActuel === "evenement.html" && idActuel === idEvenement) {
         lien.classList.add("active");
+        lien.setAttribute("aria-current", "page");
       }
 
       li.appendChild(lien);
@@ -710,13 +866,16 @@ async function chargerAsideLiens() {
     }
   } catch (error) {
     console.error("Erreur chargement aside :", error);
+    liste.innerHTML = '<li class="aside-message">Impossible de charger la liste.</li>';
   }
 }
 
 function demarrerUtilitaire() {
   loadHeader();
   loadFooter();
+  initialiserLienMenuActif();
   initialiserRechercheHeader();
+  initialiserMenuUtilisateur();
   initialiserMenuBurger();
   initialiserCarrousel();
   initialiserAsideToggle();

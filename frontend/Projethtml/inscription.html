@@ -1,70 +1,40 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscription</title>
   <link rel="stylesheet" href="../stylescss/inscription.css">
+  <link rel="stylesheet" href="../stylescss/header-footer.css">
 </head>
 
-<body>
+<body class="page-auth page-signup">
   <header id="header">
-    <!-- logo -->
-    <!-- <img src="../image/image logo.png" class="logo" alt="Logo Randonnée Hérault"> -->
-<!-- titre  -->
-    <!-- <p class="site-title">Randonnée de l'Hérault</p> -->
-    <!-- Icône d'utilisateur -->
-    <!-- <a href="../Projethtml/connexion.html">
-      <img class="user" src="../image/telechargement4.png" alt="Utilisateur">
-    </a> -->
-    <!-- BOUTON BURGER -->
-    <!-- <button class="burger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button> -->
-    <!-- menu header -->
-    <!-- <nav class="menu">
-      <ul>
-        <li><a href="accueil.html">ACCUEIL</a></li>
-        <li><a href="apropos.html">À PROPOS</a></li>
-        <li><a href="event.html">ÉVÉNEMENTS</a></li>
-        <li><a href="inscription.html">INSCRIPTION</a></li>
-        <li><a href="contact.html">CONTACT</a></li>
-      </ul>
-    </nav> -->
-    <!-- barre de recherche -->
-    <!-- <div class="search-bar">
-      <input type="text" placeholder="Rechercher..." name="">
-    </div> -->
+
   </header>
-  <!-- corps de la page -->
   <main>
-    <!-- cadre d'inscription -->
     <section class="inscription">
-      <!-- titre -->
-      <h1>INSCRIPTION</h1>
-      <!-- premiere partie du formulaire -->
-      <form class="formulaire">
+      <h1>Inscription</h1>
+      <form class="formulaire" id="signup-form" novalidate>
         <div class="info">
-          <input type="text" placeholder="Nom">
-          <input type="text" placeholder="Prénom">
+          <input type="text" name="nom" id="signup-nom" placeholder="Nom" autocomplete="family-name" required>
+          <input type="text" name="prenom" id="signup-prenom" placeholder="Prénom" autocomplete="given-name" required>
         </div>
-        <!-- deuxieme partie du formulaire -->
         <div class="tel">
-          <input type="email" placeholder="Email">
-          <input type="tel" placeholder="Numéro de téléphone">
-          <input type="password" placeholder="Mot de passe">
-          <input type="password" placeholder="Confirmation de Mot de passe">
+          <input type="email" name="email" id="signup-email" placeholder="Email" autocomplete="email" required>
+          <input type="tel" name="numero_de_telephone" id="signup-telephone" placeholder="Numéro de téléphone" autocomplete="tel" required>
+          <input type="password" name="mot_de_passe" id="signup-password" placeholder="Mot de passe" autocomplete="new-password" required>
+          <input type="password" name="confirmation_mot_de_passe" id="signup-password-confirmation" placeholder="Confirmation du mot de passe" autocomplete="new-password" required>
         </div>
+        <div class="conf">
+          <button type="submit">Confirmer l’inscription</button>
+        </div>
+        <p class="form-feedback" id="signup-feedback" aria-live="polite"></p>
       </form>
 
-      <!-- icones reseaux sociaux -->
       <div class="reseaux">
-        <!-- phrase proposition reseaux -->
         <p>S’inscrire avec</p>
-        <!-- icones reseaux sociaux -->
         <div class="icons">
           <img class="logos" src="../image/autocollants-google-icone.png" alt="Logo Google">
           <img class="logos" src="../image/Instagram_icon.png" alt="Logo Instagram">
@@ -72,28 +42,20 @@
           <img class="logos" src="../image/icone x.png" alt="Logo X">
         </div>
       </div>
-      </div>
-      <!-- Bouton de confirmation -->
-      <div class="conf">
-        <button type="submit">Confirmer l’inscription</button>
-      </div>
     </section>
   </main>
-  <!-- footer -->
   <footer class="footer">
-    <!-- <a href="../Projethtml/contact.html">Nous contacter</a>
-    <p>Copyright © 2025
-      Powered by Khaled</p>
-    <a href="../Projethtml/mentionsLegales.html">Mentions légales</a>
-    <a href="../Projethtml/politiqueconf.html">Politique de confidentialité</a> -->
   </footer>
 
-  <script type="module" src="../Projetjs/utilitaire.js"></script>
+  <script type="module" src="../Projetjs/utilisateur.js"></script>
 
 
 </body>
 
 </html>
+
+
+
 
 
 
